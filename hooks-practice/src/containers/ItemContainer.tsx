@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import {itemReducer} from '../reducers/ItemReducer';
+import {Item} from '../models/Item';
 
-interface Props {
-id:string,
-description:string
-}
+
+
+
 
 const ItemContainer:React.FC = ():JSX.Element => {
+    const initialState:Item[] = [];
+    const [state,dispatch] = useReducer(itemReducer, initialState);
     return(
         <div className="App">
             <p>Reminder Form</p>
