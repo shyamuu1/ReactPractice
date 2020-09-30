@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springmongoparactice.mongopractice.models.Items;
 import com.springmongoparactice.mongopractice.repository.ItemsRepository;
+import com.springmongoparactice.mongopractice.services.ItemService;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class ItemController {
 	
-	private ItemsRepository IRepo;
+	private ItemService IS;
 	
 	@Autowired
-	public ItemController(ItemsRepository IRepo) {
-		this.IRepo = IRepo;
+	public ItemController(ItemService IS) {
+		this.IS = IS;
 		
 	}
 	@GetMapping("/allItems")
 	public List<Items> getAllItems() {
-		return this.IRepo.findAll();
+		return this.IS.getItems();
 	}
 
 }

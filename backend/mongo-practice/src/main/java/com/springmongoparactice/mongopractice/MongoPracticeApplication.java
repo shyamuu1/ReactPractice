@@ -9,7 +9,6 @@ import com.springmongoparactice.mongopractice.config.MongoConfig;
 
 @SpringBootApplication
 @Import(MongoConfig.class)
-//@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class MongoPracticeApplication {
 
 	public static void main(String[] args) {
