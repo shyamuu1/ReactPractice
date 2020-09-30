@@ -1,12 +1,14 @@
-
 import React from 'react';
+import { ItemProvider } from 'util/context';
 import ItemContainer from './containers/ItemContainer';
 
 const App:React.FC = ():JSX.Element => {
     
     return (
         <div>
-            <ItemContainer />
+            <ItemProvider>
+                <ItemContainer />
+            </ItemProvider>
         </div>
     );
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import {Item} from '../../models/Item';
+import {Item} from 'util/type';
 import './ReminderList.css';
 
 const ReminderList = (props)=> {
-    
     return(
         <section className="reminder-list">
             <h2>My Reminders</h2>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {Card} from '../../hoc/Card';
+import Card from '../../hoc/Card';
 import './ReminderForm.css';
-
 
 const ReminderForm = (props):JSX.Element => {
     const[enteredDescription, setDescription] =  useState('');

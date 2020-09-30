@@ -4,8 +4,9 @@ type Props = {
     children:ReactNode
 }
 
-export class Card extends Component<Props>{
+class Card extends Component<Props>{
     render(){
     return <div className="card">{this.props.children}</div>
     }
 }
+export default Card;

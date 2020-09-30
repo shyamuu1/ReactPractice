@@ -1,9 +1,8 @@
-import React, { useMemo, useReducer } from 'react';
+import React, { useContext, useMemo, useReducer } from 'react';
 import {itemReducer} from '../reducers/ItemReducer';
-import {Item} from '../models/Item';
 import ReminderForm from '../components/ReminderForm/ReminderForm';
 import ReminderList from '../components/ReminderList/ReminderList';
-
+import {Item} from '../util/type';
 
 
 const ItemContainer = ():JSX.Element => {
