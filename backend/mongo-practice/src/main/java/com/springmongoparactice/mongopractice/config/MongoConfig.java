@@ -32,25 +32,14 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 	@Override
 	@Bean
 	public MongoClient mongoClient() {
-		MongoCredential creds = MongoCredential.createScramSha1Credential("shyamuu.vasanjee@gmail.com", "ToDoApp",
-				"catch22!".toCharArray());
-		String uri = getUri(creds);
-		System.out.println(uri);
-		final ConnectionString connectionString = new ConnectionString(uri);
-        final MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
-        return MongoClients.create(mongoClientSettings);
-	}
-
-	private String getUri(MongoCredential creds) {
-		List<MongoCredential> allCreds = new ArrayList<>();
-		allCreds.add(creds);
-		String uri = "mongodb://" + allCreds.get(0).getUserName() + ":" + new String(allCreds.get(0).getPassword()) + "@localhost:27017/ToDoApp";
-		return UriUtils.encode(uri, "base64");
+		MongoClient mongoClient = MongoClients
+				.create("mongodb+srv://admin:admin@cluster0.dhxhk.mongodb.net/ToDoApp?retryWrites=true&w=majority");
+		return mongoClient;
 	}
 
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
-		return new MongoTemplate(mongoClient(), "ToDoApp");
+		return new MongoTemplate(mongoClient(), getDatabaseName());
 	}
 
 }
