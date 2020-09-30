@@ -1,29 +1,26 @@
 import React, {useState} from 'react';
 import {Card} from '../../hoc/Card';
 import './ReminderForm.css';
-import {Item} from '../../models/Item';
 
-interface Props {
-    onAddItem:Function
-}
 
-const ReminderForm:React.FC<Props> = ():JSX.Element => {
-    const[enteredTitle, setEnteredTitle] =  useState('');
-    const submitHandler = (event):void => {
+const ReminderForm = (props):JSX.Element => {
+    const[enteredDescription, setDescription] =  useState('');
+    const submitHandler = (event) => {
         event.preventDefault();
+        props.onAddItem({description:enteredDescription});
     }
     return (
         <section className="reminder-form">
       <Card>
         <form onSubmit={submitHandler}>
           <div className="form-control">
-            <label htmlFor="title">Name</label>
+            <label htmlFor="description">Description</label>
             <input
               type="text"
-              id="title"
-              value={enteredTitle}
+              id="description"
+              value={enteredDescription}
               onChange={event => {
-                setEnteredTitle(event.target.value);
+                setDescription(event.target.value);
               }}
             />
           </div>
