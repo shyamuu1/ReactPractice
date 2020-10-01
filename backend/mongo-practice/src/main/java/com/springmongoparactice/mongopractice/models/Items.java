@@ -7,11 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Items {
 	@Id
 	private String id;
-	private String value;
+	private String description;
 	
-	public Items(String id, String value) {
+	public Items(String id, String description) {
 		this.id = id;
-		this.value = value;
+		this.description = description;
 	}
 	
 	//No Args Constructor
@@ -26,17 +26,17 @@ public class Items {
 		this.id = id;
 	}
 	
-	public String getValue() {
-		return this.value;
+	public String getdescription() {
+		return this.description;
 	}
 	
-	public void setValue(String value) {
-		this.value = value;
+	public void setdescription(String description) {
+		this.description = description;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", value=" + value + "]";
+		return "Item [id=" + id + ", description=" + description + "]";
 	}
 	
 	

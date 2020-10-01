@@ -1,10 +1,10 @@
 export type Item = {
-    ItemId?:string;
+    id?:string;
     description?:string;
 }
 
 export type ItemContextType = {
-    item: Item;
+    allItems: Item[];
     loading: boolean;
     error: boolean;
 }
