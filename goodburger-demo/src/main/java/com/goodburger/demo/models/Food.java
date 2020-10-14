@@ -4,10 +4,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document("Food")
 public class Food {
 	@Id
-	private String _id;
+	private ObjectId _id;
 	private String name;
 	private String food_type;
 	private String description;
@@ -15,7 +15,7 @@ public class Food {
 	
 	public Food() {}
 	
-	public Food(String _id, String name, String food_type, String description, Double price) {
+	public Food(ObjectId _id, String name, String food_type, String description, Double price) {
 		this._id = _id;
 		this.name = name;
 		this.food_type = food_type;
@@ -26,7 +26,7 @@ public class Food {
 	
 	//getters and setters
 	public String getId() {
-		return this._id;
+		return this._id.toHexString();
 	}
 	
 	public String getName() {
@@ -45,7 +45,7 @@ public class Food {
 		return this.price;
 	}
 	
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this._id =id;
 	}
 	
