@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Food {
 	@Id
-	private ObjectId _id;
+	private String _id;
 	private String name;
 	private String food_type;
 	private String description;
@@ -15,7 +15,7 @@ public class Food {
 	
 	public Food() {}
 	
-	public Food(ObjectId _id, String name, String food_type, String description, Double price) {
+	public Food(String _id, String name, String food_type, String description, Double price) {
 		this._id = _id;
 		this.name = name;
 		this.food_type = food_type;
@@ -25,7 +25,7 @@ public class Food {
 	}
 	
 	//getters and setters
-	public ObjectId getId() {
+	public String getId() {
 		return this._id;
 	}
 	
@@ -45,7 +45,7 @@ public class Food {
 		return this.price;
 	}
 	
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this._id =id;
 	}
 	

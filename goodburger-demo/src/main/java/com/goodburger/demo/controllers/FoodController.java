@@ -21,7 +21,7 @@ public class FoodController {
 		this.fs = fs;
 	}
 	
-	@GetMapping("/allFoodz")
+	@GetMapping("/all")
 	public List<Food> getAllFoods(){
 		return this.fs.getFoodz();
 	}
