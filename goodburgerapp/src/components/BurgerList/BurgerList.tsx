@@ -1,4 +1,5 @@
 import React from 'react';
+import BurgerCard from './BurgerListItem/BurgerCard';
 import {Food} from '../../util/types';
 import "./BurgerList.css";
 
@@ -11,13 +12,9 @@ const BurgerList = ({allFood}:Props) => {
         <section className="burger-list">
             <h2>GoodBurgers</h2>
             <ul>
-                {allFood.map((burger:Food) => (
-                    <li key={burger.id}>
-                        <span>{burger.name}</span>
-                        <span><p>{burger.description}</p></span>
-                    </li>
+                {allFood.map((food:Food) => (
+                    <BurgerCard Bkey={food.id} burger={food} />
                 ))}
-
             </ul>
         </section>
 
