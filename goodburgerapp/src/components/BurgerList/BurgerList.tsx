@@ -2,14 +2,17 @@ import React from 'react';
 import {Food} from '../../util/types';
 import "./BurgerList.css";
 
-const BurgerList = (props:any) => {
-    
+interface Props {
+    allFood:Food[];
+}
+
+const BurgerList = ({allFood}:Props) => {
     return (
         <section className="burger-list">
             <h2>GoodBurgers</h2>
             <ul>
-                {props.allFood.map((burger:Food) => (
-                    <li key={burger._id}>
+                {allFood.map((burger:Food) => (
+                    <li key={burger.id}>
                         <span>{burger.name}</span>
                         <span><p>{burger.description}</p></span>
                     </li>

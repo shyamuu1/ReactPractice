@@ -1,5 +1,5 @@
 export type Food = {
-    _id:string;
+    id:string;
     name:string;
     foodType:string;
     description:string;
