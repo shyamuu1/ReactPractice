@@ -6,3 +6,10 @@ export type Food = {
     price:Number;
 
 }
+
+export interface FoodAction {
+    type: "SET";
+    meals: Food[];
+}
+
+export type FoodActionType = FoodAction;

@@ -8,9 +8,10 @@ interface Props {
 }
 
 const BurgerList = ({allFood}:Props) => {
+    let header = (allFood.length && allFood[0].foodType === "Burger")?<h2>GoodBurgers</h2>:<h2>Drinks</h2>;
     return (
         <section className="burger-list">
-            <h2>GoodBurgers</h2>
+            {header}
             <ul>
                 {allFood.map((food:Food) => (
                     <BurgerCard Bkey={food.id} burger={food} />   

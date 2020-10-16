@@ -9,16 +9,16 @@ public class Food {
 	@Id
 	private ObjectId _id;
 	private String name;
-	private String food_type;
+	private String foodType;
 	private String description;
-	private Double price;
+	private String price;
 	
 	public Food() {}
 	
-	public Food(ObjectId _id, String name, String food_type, String description, Double price) {
+	public Food(ObjectId _id, String name, String foodType, String description, String price) {
 		this._id = _id;
 		this.name = name;
-		this.food_type = food_type;
+		this.foodType = foodType;
 		this.description = description;
 		this.price = price;
 		
@@ -34,14 +34,14 @@ public class Food {
 	}
 	
 	public String getFoodType() {
-		return this.food_type;
+		return this.foodType;
 	}
 	
 	public String getDecription() {
 		return this.description;
 	}
 	
-	public Double getPrice() {
+	public String getPrice() {
 		return this.price;
 	}
 	
@@ -54,18 +54,18 @@ public class Food {
 	}
 	
 	public void setFoodType(String foodType) {
-		this.food_type = foodType;
+		this.foodType = foodType;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "Food [_id=" + _id + ", name=" + name + ", food_type=" + food_type + ", description=" + description
+		return "Food [_id=" + _id + ", name=" + name + ", foodType=" + foodType + ", description=" + description
 				+ ", price=" + price + "]";
 	}
 

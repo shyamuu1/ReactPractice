@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../../assets/images/logo5121.png';
 import {Food} from '../../../util/types';
 import Card from '../../../lib/Card/card';
 interface Props {
@@ -7,15 +6,14 @@ interface Props {
     Bkey: string;
 }
 const BurgerCard:React.FC<Props> = ({Bkey, burger}:Props) => {
-    console.log(burger);
     return (
-        <div className="burger-card" key={Bkey}>
+        <div key={Bkey}>
             <Card>
-                <div className="card__content">
+                <div className="card-header">
                     <h3>{burger.name}</h3>
-                    <p>{burger.decription}</p>
                 </div>
-                <div className="card-footer">
+                <div className="card-body">
+                    <p>{burger.decription}</p>
                     <span><strong>{`price: $${burger.price}.00`}</strong></span>
                 </div>
                 </Card>

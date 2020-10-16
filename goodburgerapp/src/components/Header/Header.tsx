@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import Banner from '../../containers/Banner/Banner';
 import './Header.css';
 
 const header:FC = () => {

@@ -1,14 +1,14 @@
 import React from 'react';
 import Layout from './containers/Layout/Layout';
 import Burger from './containers/Burger/Burger';
-
+import Banner from "../src/containers/Banner/Banner";
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Layout>
         <Burger />
       </Layout>
-    </div> 
+    </React.Fragment> 
   );
 }
 

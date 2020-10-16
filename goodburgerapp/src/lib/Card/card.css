@@ -1,6 +1,19 @@
 .card {
-    padding: 1rem;
     font-family: Helvetica;
     border-radius: 5px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.26);
+}
+
+.card-header {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 1px 8px 0px;
+    background-color: saddlebrown;
+    color:white;
+  }
+.card-body {
+    padding: 8px;
 }

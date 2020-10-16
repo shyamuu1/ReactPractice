@@ -32,6 +32,15 @@ public class FoodController {
 	public List<Food> getAllFoods(){
 		return this.fs.getFoodz();
 	}
+	@GetMapping("/burgers")
+	public List<Food> getBurgers(){
+		return this.fs.getFoodByType("Burger");
+	}
+	
+	@GetMapping("/beverages")
+	public List<Food> getDrinks(){
+		return this.fs.getFoodByType("Beverage");
+	}
 	
 	@PostMapping("/")
 	public Food addFood(@RequestBody Food f) {

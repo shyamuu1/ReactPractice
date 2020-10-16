@@ -1,11 +1,14 @@
+import { Food, FoodActionType } from "../util/types";
 
 
-export const mealReducer = (currentMealItems:any[], action:any) => {
+
+
+export const mealReducer = (currentMealItems:Food[] = [], action:FoodActionType) => {
     switch (action.type) {
         case "SET":
             return action.meals;
         default:
-            throw new Error("Should not hit here")
+            return currentMealItems;
     }
 
 };
