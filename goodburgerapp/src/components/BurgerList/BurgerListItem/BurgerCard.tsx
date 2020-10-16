@@ -1,22 +1,25 @@
 import React from 'react';
-import Card from '../../../lib/Card/card';
+import logo from '../../../assets/images/logo5121.png';
 import {Food} from '../../../util/types';
+import Card from '../../../lib/Card/card';
 interface Props {
     burger:Food;
     Bkey: string;
 }
 const BurgerCard:React.FC<Props> = ({Bkey, burger}:Props) => {
-    console.log(Bkey)
+    console.log(burger);
     return (
-        <div key={Bkey}>
+        <div className="burger-card" key={Bkey}>
             <Card>
-                <div className="card-row">
-                    <div className="card-col">
-                        {burger.name}
-                    </div>
+                <div className="card__content">
+                    <h3>{burger.name}</h3>
+                    <p>{burger.decription}</p>
                 </div>
-            </Card>
-        </div>
+                <div className="card-footer">
+                    <span><strong>{`price: $${burger.price}.00`}</strong></span>
+                </div>
+                </Card>
+            </div>
     )
 }
 

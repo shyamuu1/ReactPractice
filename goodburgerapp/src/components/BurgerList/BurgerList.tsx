@@ -13,7 +13,7 @@ const BurgerList = ({allFood}:Props) => {
             <h2>GoodBurgers</h2>
             <ul>
                 {allFood.map((food:Food) => (
-                    <BurgerCard Bkey={food.id} burger={food} />
+                    <BurgerCard Bkey={food.id} burger={food} />   
                 ))}
             </ul>
         </section>

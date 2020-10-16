@@ -2,7 +2,7 @@ export type Food = {
     id:string;
     name:string;
     foodType:string;
-    description:string;
+    decription:string;
     price:Number;
 
 }
