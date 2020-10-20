@@ -1,20 +1,18 @@
 import React, { ReactNode } from 'react';
 import Header from "../../components/Header/Header";
 import "./Layout.css";
-import Banner from "../Banner/Banner";
-interface Props {
-    children:ReactNode;
-}
+import Grid from "../Grid/Grid";
+import Footer from "../../components/Footer/footer";
+import Main from "../Main/main";
 
-const Layout:React.FC<Props> = ({children}:Props) => {
+
+const Layout:React.FC = () => {
     return (
-    <div className="main-wrapper">
+        <Grid>
         <Header />
-        {/* <Banner>
-            <p>Welcome to Good Burger, home of the Good Burger. Can I take your order?</p>
-        </Banner> */}
-        <main className="content">{children}</main>
-    </div>
+        <Main />
+        <Footer />
+        </Grid>
     );
 }
 

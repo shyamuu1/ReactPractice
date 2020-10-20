@@ -19,9 +19,9 @@ public class FoodService {
 		this.fr = fr;
 	}
 	
-	public List<Food> getFoodByType(String foodType){
-		return this.fr.findByfoodType(foodType);
-	}
+//	public List<Food> getFoodByType(String foodType){
+//		return this.fr.findByfoodType(foodType);
+//	}
 	
 	public List<Food> getFoodz(){
 		return this.fr.findAll();

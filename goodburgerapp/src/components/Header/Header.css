@@ -1,5 +1,5 @@
 
-.Header {
+/* .Header {
     height:56px;
     width:100%;
     position:fixed;
@@ -21,4 +21,32 @@ Header nav {
 Header nav h2{
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-transform: capitalize;
+} */
+
+.header {
+    grid-area: header;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: #603813;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b29f94, #603813);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b29f94, #603813); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: whitesmoke
+}
+.header h2{
+    color:black;
+}
+
+.header-container{
+    display: flex;
+    list-style-type: none;
+}
+.header-container li {
+    margin: 0 16px;
+}
+.header-container li a{
+    text-decoration: none;
+    box-sizing: border-box;
+    color: whitesmoke;
 }

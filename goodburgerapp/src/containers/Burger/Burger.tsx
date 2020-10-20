@@ -9,7 +9,6 @@ const Burger:React.FC = () => {
     const [error, setError] = useState(null);
     const initialState:Food[] = [];
     const [currentBurgers, dispatch] = useReducer(mealReducer, initialState);
-    const [currentDrinks, setDrinks] = useState(initialState);
     useEffect(() => {
         const fetchData = async() => {
             fetch('http://localhost:8080/food/', {
@@ -38,13 +37,11 @@ const Burger:React.FC = () => {
         }
         
     }, [currentBurgers]);
-    //const clear = useMemo(() => {setError(null)}, [])
+
     return(
-        <div className="burger-container">
-            <section>
+            <div className="Burger">
             {foods}
-            </section>
-        </div> 
+            </div>
     );
 }
 

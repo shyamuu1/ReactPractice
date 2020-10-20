@@ -1,13 +1,16 @@
 import React, {FC} from 'react';
-import Banner from '../../containers/Banner/Banner';
 import './Header.css';
 
 const header:FC = () => {
     return (
-        <header className="Header">
-            <nav>
+        <header className="header">
                 <h2>Good Burger</h2>
-            </nav>
+              
+                <ul className="header-container">
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">Checkout</a></li>
+                </ul>
+                
         </header>
     );
 }

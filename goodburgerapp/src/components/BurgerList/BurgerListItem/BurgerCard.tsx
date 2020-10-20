@@ -14,7 +14,7 @@ const BurgerCard:React.FC<Props> = ({Bkey, burger}:Props) => {
                 </div>
                 <div className="card-body">
                     <p>{burger.decription}</p>
-                    <span><strong>{`price: $${burger.price}.00`}</strong></span>
+                    <span><strong>price: ${burger.price}</strong></span>
                 </div>
                 </Card>
             </div>

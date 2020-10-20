@@ -1,0 +1,31 @@
+.main-header {
+    position: relative;
+    display:flex;
+    justify-content: space-between;
+    padding: 20px;;
+    margin:20px;
+    height: 200px;
+    background-color: khaki;
+    color:black;
+}
+
+.main-header-wrapper{
+    display: flex;
+    flex: 1;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 12px 30px;
+    background: rgba(255,255,255,.12);
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+.main-header-quote{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+

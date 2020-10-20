@@ -1,0 +1,15 @@
+.footer{
+    grid-area: footer;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: #603813;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b29f94, #603813);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b29f94, #603813); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: whitesmoke;
+}
+
+.footer__copyright{
+    color: black;
+}
