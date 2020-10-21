@@ -1,0 +1,15 @@
+.navlink {
+    margin: 0 16px;
+}
+.navlink a{
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+    color: whitesmoke;
+}
+
+.navlink a:hover,
+.navlink a:active,
+.navlink a.active{
+    color: #40A4C8;
+}

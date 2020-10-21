@@ -14,7 +14,7 @@ const BurgerCard:React.FC<Props> = ({Bkey, burger}:Props) => {
                 </div>
                 <div className="card-body">
                     <p>{burger.decription}</p>
-                    <span><strong>price: ${burger.price}</strong></span>
+                    <span>Price: <strong>${Number.parseFloat(burger.price).toFixed(2)}</strong></span>
                 </div>
                 </Card>
             </div>

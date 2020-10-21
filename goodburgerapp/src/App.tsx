@@ -1,9 +1,9 @@
 import React from 'react';
-import Layout from './containers/Layout/Layout';
+import Pages from './containers/Pages/Page';
 
 function App() {
   return (
-    <Layout />
+    <Pages />
   );
 }
 

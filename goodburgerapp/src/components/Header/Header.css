@@ -42,11 +42,4 @@ Header nav h2{
     display: flex;
     list-style-type: none;
 }
-.header-container li {
-    margin: 0 16px;
-}
-.header-container li a{
-    text-decoration: none;
-    box-sizing: border-box;
-    color: whitesmoke;
-}
+

@@ -3,7 +3,7 @@ export type Food = {
     name:string;
     foodType:string;
     decription:string;
-    price:Number;
+    price:string;
 
 }
 

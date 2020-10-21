@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import Headerlink from "./NavLinks/Headerlink";
 import './Header.css';
 
 const header:FC = () => {
@@ -7,8 +8,8 @@ const header:FC = () => {
                 <h2>Good Burger</h2>
               
                 <ul className="header-container">
-                    <li><a href="#">Menu</a></li>
-                    <li><a href="#">Checkout</a></li>
+                    <Headerlink link="/" >Menu</Headerlink>
+                    <Headerlink link="/checkout">Checkout</Headerlink>
                 </ul>
                 
         </header>
