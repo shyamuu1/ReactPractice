@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Food} from '../../../util/types';
 import Card from '../../../lib/Card/card';
 
@@ -8,9 +8,11 @@ interface Props {
     addOrder(order:Food): void;
 }
 const BurgerCard:React.FC<Props> = ({Bkey, burger, addOrder}:Props) => {
+    const [order, setOrder] = useState<Food>(burger);
     const submitHandler= (event:any) => {
         event.preventDefault();
-        addOrder(burger);
+        setOrder(burger);
+        addOrder(order);
     }
     return (
         <div key={Bkey}>

@@ -1,13 +1,15 @@
 import React, {useState, useReducer, useEffect, useMemo} from 'react';
 import {Food} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
-import { mealReducer } from '../../reducers/mealReducer'; 
+import { mealReducer } from '../../reducers/mealReducer';
+import {sendPostRequest, sendGetRequest} from "../../util/http-service";
 import "./Burger.css";
 
 
 const Burger:React.FC = () => {
     const [error, setError] = useState(null);
     const initialState:Food[] = [];
+    const [currentOrders, setOrders] = useState<Food[]>(initialState);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initialState);
     useEffect(() => {
         const fetchData = async() => {
@@ -21,11 +23,14 @@ const Burger:React.FC = () => {
                 setError(err.message);
             })
         };
-        fetchData()
+        fetchData();
     }, []);
 
-    const onAddFoodHandler = (burger:Food[]) => {
-        console.log(burger);
+    const onAddFoodHandler = (orders:Food[]) => {
+        setOrders(orders);
+        if(currentOrders.length){
+            console.log(currentOrders)
+        }
     }
 
     const foods = useMemo(() => {
@@ -34,8 +39,7 @@ const Burger:React.FC = () => {
             const burgers = currentBurgers.filter(f => f.foodType === "Burger");
             return (
                 <div>
-                <BurgerList allFood={burgers}/>
-                <BurgerList allFood={drinks} />
+                <BurgerList addorders={onAddFoodHandler} allFood={burgers} drinks={drinks}/>
                 </div>
             );
         }

@@ -5,23 +5,34 @@ import "./BurgerList.css";
 
 interface Props {
     allFood:Food[];
+    drinks:Food[];
+    addorders:(allorders:Food[]) => void;
 }
 
-const BurgerList = ({allFood}:Props) => {
-    let header = (allFood.length && allFood[0].foodType === "Burger")?<h2>GoodBurgers</h2>:<h2>Drinks</h2>;
+const BurgerList = ({allFood, addorders, drinks}:Props) => {
+    //let header = (allFood.length && allFood[0].foodType === "Burger")?<h2>GoodBurgers</h2>:<h2>Drinks</h2>;
     const [orders, setOrders] = useState<Food[]>([]);
     const addOrderToList = (order:Food) => {
-        setOrders(prev => [...prev, order]);
+        setOrders([...orders, order]);
+        let currOrders = [...orders, order];
+        addorders(currOrders);
     }
-    console.log(orders)
     return (
         <section className="burger-list">
-            {header}
+            <h2>GoodBurgers</h2>
             <ul>
                 {allFood.map((food:Food) => (
                     <BurgerCard Bkey={food.id} burger={food} addOrder={addOrderToList}/>  
                 ))}
             </ul>
+            <div>
+                <h2>Drinks</h2>
+                <ul>
+                    {drinks.map((drink:Food) => (
+                        <BurgerCard Bkey={drink.id} burger={drink} addOrder={addOrderToList} />
+                    ))}
+                </ul>
+            </div>
         </section>
 
     );
