@@ -9,7 +9,7 @@ import "./Burger.css";
 const Burger:React.FC = () => {
     const [error, setError] = useState(null);
     const initialState:Food[] = [];
-    const [orders, setOrders] = useState<Food[]>(initialState);
+    const [orders, setOrders] = useReducer(mealReducer, initialState)
     const [currentBurgers, dispatch] = useReducer(mealReducer, initialState);
     useEffect(() => {
         try{
@@ -36,9 +36,12 @@ const Burger:React.FC = () => {
     }, []);
 
     const onAddFoodHandler = useCallback((allOrders:Food[]) =>{
-        setOrders(allOrders);
-
-    },[orders])
+        let currOrders = allOrders.map(e => e.id);
+        if(allOrders.length){
+            sendPostRequest('http://localhost:8080/orders/',currOrders)
+            .then(resData => setOrders({type:"SET", meals:resData}));
+        }
+    },[orders]);
     
 
     const foods = useMemo(() => {

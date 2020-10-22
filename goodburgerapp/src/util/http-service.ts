@@ -10,11 +10,11 @@ export const sendGetRequest= async(url:string)=> {
     return responseData;
 }
 
-export const sendPostRequest = async(url:string, reqBody:Food[]) => {
+export const sendPostRequest = async(url:string, reqBody:any) => {
     const resp =  await fetch(url, {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body:JSON.stringify(reqBody)
+        body: JSON.stringify(reqBody)
     });
     const resData = await resp.json();
     return resData;

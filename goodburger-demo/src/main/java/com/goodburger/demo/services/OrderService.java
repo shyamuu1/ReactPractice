@@ -1,5 +1,7 @@
 package com.goodburger.demo.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -20,16 +22,17 @@ public class OrderService {
 		this.orderRepo = orderRepo;
 	}
 	
-	public String createOrder(List<Food> allfoods) {
+	public String createOrder(String[] allOrders) {
+//		List<String> allfoods = new ArrayList<String>(Arrays.asList(allOrders.split(",")));
+		System.out.println("IN ORDER SERVICE "+allOrders);
 		Order currOrder = new Order();
 		currOrder.setId(ObjectId.get());
-		currOrder.setOrders(allfoods);
 //		Order newOrder = this.orderRepo.save(currOrder);
 		return currOrder.toString();
 	}
 	
 	private static void getPrices(List<Food> allfoods) {
-		
+		//do stuff
 	}
 
 }
