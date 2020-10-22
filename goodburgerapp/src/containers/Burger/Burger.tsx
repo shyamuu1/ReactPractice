@@ -24,6 +24,10 @@ const Burger:React.FC = () => {
         fetchData()
     }, []);
 
+    const onAddFoodHandler = (burger:Food[]) => {
+        console.log(burger);
+    }
+
     const foods = useMemo(() => {
         if(currentBurgers.length){
             const drinks = currentBurgers.filter(f => f.foodType === "Beverage");

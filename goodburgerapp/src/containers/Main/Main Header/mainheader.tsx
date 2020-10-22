@@ -2,12 +2,16 @@ import { url } from 'inspector';
 import React, {FC} from 'react';
 import "./mainheader.css";
 
-const mainheader:FC = () => {
+interface Props{
+    children:any;
+}
+
+const mainheader:FC<Props> = ({children}:Props) => {
     return (
         <div className="main-header">
             <div className="main-header-wrapper">
                 <div className="main-header-quote">
-                <strong>Welcome to Good Burger, home of the Good Burger. Can I take your order?</strong>
+                    {children}
                 </div>
             </div>
         </div>
