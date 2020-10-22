@@ -8,6 +8,7 @@ interface Props {
     addOrder(order:Food): void;
 }
 const BurgerCard:React.FC<Props> = ({Bkey, burger, addOrder}:Props) => {
+    
     const [order, setOrder] = useState<Food>(burger);
     const submitHandler= (event:any) => {
         event.preventDefault();

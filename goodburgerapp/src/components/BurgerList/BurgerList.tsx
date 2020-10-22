@@ -14,8 +14,7 @@ const BurgerList = ({allFood, addorders, drinks}:Props) => {
     const [orders, setOrders] = useState<Food[]>([]);
     const addOrderToList = (order:Food) => {
         setOrders([...orders, order]);
-        let currOrders = [...orders, order];
-        addorders(currOrders);
+        addorders(orders);
     }
     return (
         <section className="burger-list">
