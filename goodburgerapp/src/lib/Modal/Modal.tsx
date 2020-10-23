@@ -5,7 +5,6 @@ interface Props {
     show:Boolean;
 }
 const modal:React.FC<Props> = ({children, show}:Props) => {
-    show = true;
     return (
         <div className="backdrop">
             <div className="Modal" style={{

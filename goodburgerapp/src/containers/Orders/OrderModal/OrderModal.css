@@ -1,0 +1,15 @@
+
+.order-modal-container{
+position:relative;
+height:465px;
+display:flex;
+flex-flow: column;
+justify-content: space-evenly;
+}
+.modal-header{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    background: #603813;
+    color:whitesmoke;
+}

@@ -6,10 +6,10 @@ import './OrderPage.css';
 
 const OrderPage = () => {
     return (
-        <Layout>
+        <div>
             <Mainheader>Your Orders</Mainheader>
             <Order />
-        </Layout>
+        </div>
     );
 }
 

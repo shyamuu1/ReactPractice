@@ -3,14 +3,18 @@ import {Food} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer } from '../../reducers/mealReducer';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
+import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
 import "./Burger.css";
 
 
 const Burger:React.FC = () => {
     const [error, setError] = useState(null);
+    const [show, setShow] = useState(false);
     const initialState:Food[] = [];
-    const [orders, setOrders] = useReducer(mealReducer, initialState)
+    const [orders, setOrders] = useState<Food[]>(initialState);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initialState);
+    console.log(orders, show);
+
     useEffect(() => {
         try{
             sendGetRequest('http://localhost:8080/food/')
@@ -20,29 +24,14 @@ const Burger:React.FC = () => {
         }catch(err){
             console.log(err.message);
         }
-        
-        // const fetchData = async() => {
-        //     fetch('http://localhost:8080/food/', {
-        //         method: "GET",
-        //         headers: {"Content-Type":"application/json"}
-        //     })
-        //     .then(res => res.json())
-        //     .then(resData => dispatch({type:"SET", meals:resData}))
-        //     .catch(err => {
-        //         setError(err.message);
-        //     })
-        // };
-        // fetchData();
     }, []);
 
-    const onAddFoodHandler = useCallback((allOrders:Food[]) =>{
-        let currOrders = allOrders.map(e => e.id);
-        if(allOrders.length){
-            sendPostRequest('http://localhost:8080/orders/',currOrders)
-            .then(resData => setOrders({type:"SET", meals:resData}));
-        }
-    },[orders]);
+    const onAddFoodHandler = (allOrders:Food) =>{
+        setOrders([...orders, allOrders]);
+        setShow(true);
+    };
     
+    let orderSummary = (show)?<OrderModal show={show} currentOrder={orders[0]} />:null;
 
     const foods = useMemo(() => {
         if(currentBurgers.length){
@@ -50,7 +39,7 @@ const Burger:React.FC = () => {
             const burgers = currentBurgers.filter(f => f.foodType === "Burger");
             return (
                 <div>
-                <BurgerList addorders={onAddFoodHandler} allFood={burgers} drinks={drinks}/>
+                <BurgerList allFood={burgers} drinks={drinks} addOrder={onAddFoodHandler}/>
                 </div>
             );
         }
@@ -59,6 +48,7 @@ const Burger:React.FC = () => {
 
     return(
             <div className="Burger">
+                {orderSummary}
             {foods}
             </div>
     );

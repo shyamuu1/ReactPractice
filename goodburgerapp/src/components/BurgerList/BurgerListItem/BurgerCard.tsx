@@ -1,22 +1,17 @@
 import React, {useState} from 'react';
 import {Food} from '../../../util/types';
 import Card from '../../../lib/Card/card';
+import OrderModal from "../../../containers/Orders/OrderModal/OrderModal";
 
 interface Props {
     burger:Food;
     Bkey: string;
-    addOrder(order:Food): void;
-}
-const BurgerCard:React.FC<Props> = ({Bkey, burger, addOrder}:Props) => {
+    addFood: (food:Food) => void;
     
-    const [order, setOrder] = useState<Food>(burger);
-    const submitHandler= (event:any) => {
-        event.preventDefault();
-        setOrder(burger);
-        addOrder(order);
-    }
+}
+const BurgerCard:React.FC<Props> = ({Bkey, burger, addFood}:Props) => {
     return (
-        <div key={Bkey}>
+        <li key={Bkey} onClick={()=>{addFood(burger)}}>
             <Card>
                 <div className="card-header">
                     <h3>{burger.name}</h3>
@@ -25,11 +20,8 @@ const BurgerCard:React.FC<Props> = ({Bkey, burger, addOrder}:Props) => {
                     <p>{burger.decription}</p>
                     <span>Price: <strong>${Number.parseFloat(burger.price).toFixed(2)}</strong></span>
                 </div>
-                <div className="card__actions">
-                    <button type="submit" onClick={submitHandler}>Add to Checkout</button>
-                </div>
                 </Card>
-            </div>
+            </li>
     )
 }
 

@@ -1,9 +1,21 @@
 import React from 'react';
-import Pages from './containers/Pages/Page';
+import {Switch, Route} from "react-router-dom";
+import Layout from "./containers/Layout/Layout";
+import Menu from "./containers/Pages/MenuPage/Menu";
+import OrderPage from "./containers/Pages/OrderPage/OrderPage";
+
 
 function App() {
+  const routes = (
+    <Switch>
+      <Route path="/" component={Menu} exact={true}/>
+      <Route path="/checkout" component={OrderPage} />
+  </Switch>
+  );
   return (
-    <Pages />
+    <Layout>
+      {routes}
+      </Layout>
   );
 }
 
