@@ -3,6 +3,7 @@ package com.goodburger.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("/")
-	public String addOrders(String[] orders) {
+	public String addOrders(@RequestBody String[] orders) {
 		System.out.println("IN ADD ORDERS "+orders);
 		return this.os.createOrder(orders);
 	}
