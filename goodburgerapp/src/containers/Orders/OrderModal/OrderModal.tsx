@@ -32,6 +32,7 @@ const OrderModal:React.FC<Props> = ({show, currentOrder}:Props) => {
                     <p><strong>Title:{order.name}</strong></p>
                     <p>Description:{order.decription}</p>
                     <p>Price:{order.price}</p>
+                    <p>quantity</p>
                 </div>
                 <div className="card-actions">
                     <button type="submit" onClick={handleClick}>Add to Checkout</button>

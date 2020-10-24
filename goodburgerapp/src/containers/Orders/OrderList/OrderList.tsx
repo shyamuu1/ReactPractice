@@ -1,21 +1,23 @@
 import React from 'react';
 import {Food} from '../../../util/types';
 import Card from "../../../lib/Card/card";
-
+import './OrderList.css';
 interface Props {
     allorders:Food[];
 }
 
-const orderList:React.FC<Props> = ({allorders}:Props) => {
+const OrderList:React.FC<Props> = ({allorders}:Props) => {
     const orders = [1,2,3,4];
     console.log(allorders);
     return (
         <ul className="order-list">
-            {orders.map((e) => (
+            {orders.map((idx, e) => (
+                <li key={idx}>
                 <Card>{e}</Card>
+                </li>
             ))}
         </ul>
     );
 }
 
-export default orderList;
+export default OrderList;
