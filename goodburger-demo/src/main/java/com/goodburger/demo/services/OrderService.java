@@ -30,8 +30,24 @@ public class OrderService {
 		currentOrder.setId(ObjectId.get());
 		currentOrder.setOrders(currentOrders);
 		currentOrder.setTotalPrice(totalPrice.toString());
+		this.orderRepo.save(currentOrder);
 		return currentOrder;
 	}
+	
+	public List<Order> getAllOrders(){
+		return this.orderRepo.findAll();
+	}
+	public List<Food> getallOrdersById(ObjectId id){
+		Order o = this.orderRepo.findBy_id(id);
+		return o.getOrders();
+	}
+	
+//	public void deleteFoodInOrder(OrderId, foodId) {
+			//get Order
+			//get list of orders
+			//delete food Id that matches foodId in all Orders
+			//reflect on database and frontend
+//	}
 	
 	private static BigDecimal updateTotal(List<Food> orders, Order o) {
 		ArrayList<BigDecimal> prices = new ArrayList<>();

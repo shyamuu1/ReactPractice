@@ -52,7 +52,6 @@ const Burger:React.FC = () => {
                 </div>
             );
         }
-        
     }, [currentBurgers]);
 
     let orderSummary = (orders.length)?<OrderModal currentOrder={orders[0]} CloseModal={purchaseCancelHandler} />:null;

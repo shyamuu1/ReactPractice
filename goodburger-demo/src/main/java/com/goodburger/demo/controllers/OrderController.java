@@ -1,10 +1,16 @@
 package com.goodburger.demo.controllers;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goodburger.demo.models.Food;
@@ -23,10 +29,19 @@ public class OrderController {
 		this.os = os;
 	}
 	
+	@GetMapping("/")
+	public List<Order> getOrders(){
+		return this.os.getAllOrders();
+	}
+	
 	@PostMapping("/")
 	public Order addOrders(@RequestBody Food[] orders) {
-		System.out.println("IN ADD ORDERS "+orders);
 		return this.os.createOrder(orders);
+	}
+	
+	@RequestMapping(value="/{id}",  method=RequestMethod.POST)
+	public void deleteFood(@RequestBody Order order, @PathVariable ObjectId id) {
+		//doStuff
 	}
 
 }

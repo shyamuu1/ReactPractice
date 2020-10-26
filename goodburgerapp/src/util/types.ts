@@ -7,9 +7,27 @@ export type Food = {
 
 }
 
-export interface FoodAction {
+export type Order = {
+    id:string;
+    orders:Food[];
+    totalPrice:string;
+}
+
+export interface FoodSETAction {
     type: "SET";
     meals: Food[];
 }
 
-export type FoodActionType = FoodAction;
+export interface FoodDeleteAction{
+    type:"DELETE";
+    id:string;
+}
+
+export interface OrderAddAction{
+    type:"ADD";
+    order:Order;
+}
+
+export type OrderActionType = OrderAddAction;
+
+export type FoodActionType = FoodSETAction | FoodDeleteAction;

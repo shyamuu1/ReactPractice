@@ -9,12 +9,12 @@ interface Props {
 
 const OrderList:React.FC<Props> = ({allorders, onRemoveOrder}:Props) => {
     const [currentOrders, setCurrentOrders] = useState(allorders);
-    
+    console.log(allorders)
     return (
         <ul className="order-list">
             {currentOrders.map((order) => (
                 <li key={order.id}>
-                <Card>
+                    <div className="order-card">
                     <div className="order-quantity">
                        quantity: 1
                     </div>
@@ -27,7 +27,7 @@ const OrderList:React.FC<Props> = ({allorders, onRemoveOrder}:Props) => {
                     <div className="order-del">
                         <button onClick={()=>{onRemoveOrder(order.id)}}><i className="fa fa-trash-o"></i></button>
                     </div>
-                </Card>
+                    </div>
                 </li>
             ))}
         </ul>
