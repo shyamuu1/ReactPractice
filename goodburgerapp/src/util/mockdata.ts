@@ -44,3 +44,20 @@ export const data:Food[] = [
         "decription": "Always Free!"
     }
 ];
+
+export const orders:Food[] = [
+    {
+    "name": "Blk n Blu GoodBurger",
+    "foodType": "Burger",
+    "price": "4.00",
+    "id": "5f8713afd3dde231e7a84086",
+    "decription": "Black Bean Burger with Blue cheese"
+},
+{
+    "name": "Water",
+    "foodType": "Beverage",
+    "price": "0.00",
+    "id": "5f8a136a1ae8370ba234c27d",
+    "decription": "Always Free!"
+}
+];

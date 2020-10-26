@@ -9,13 +9,14 @@ interface Props {
 const OrderModal:React.FC<Props> = ({currentOrder, CloseModal}:Props) => {
     // const [open, setOpen] = useState<Boolean>(show);
     const [order, setOrder] = useState<Food>(currentOrder);
-    const [bag, fillBag] = useState<Food[]>([]);
+    const [checkout, addToCheckout] = useState<Food[]>([]);
 
-    console.log(bag);
+    console.log(checkout);
 
     const checkoutClickHandler = (event:any) => {
         event.preventDefault();
-        fillBag([...bag, currentOrder]);
+        addToCheckout([...checkout, currentOrder]);
+        CloseModal();
 
     }
 

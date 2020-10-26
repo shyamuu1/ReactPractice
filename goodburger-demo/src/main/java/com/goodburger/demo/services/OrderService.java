@@ -1,5 +1,6 @@
 package com.goodburger.demo.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,17 +23,25 @@ public class OrderService {
 		this.orderRepo = orderRepo;
 	}
 	
-	public String createOrder(String[] allOrders) {
-//		List<String> allfoods = new ArrayList<String>(Arrays.asList(allOrders.split(",")));
-		System.out.println("IN ORDER SERVICE "+allOrders);
-		Order currOrder = new Order();
-		currOrder.setId(ObjectId.get());
-//		Order newOrder = this.orderRepo.save(currOrder);
-		return currOrder.toString();
+	public Order createOrder(Food[] allOrders) {
+		Order currentOrder = new Order();
+		List<Food> currentOrders = Arrays.asList(allOrders);
+		BigDecimal totalPrice = updateTotal(currentOrders, currentOrder);
+		currentOrder.setId(ObjectId.get());
+		currentOrder.setOrders(currentOrders);
+		currentOrder.setTotalPrice(totalPrice.toString());
+		return currentOrder;
 	}
 	
-	private static void getPrices(List<Food> allfoods) {
-		//do stuff
+	private static BigDecimal updateTotal(List<Food> orders, Order o) {
+		ArrayList<BigDecimal> prices = new ArrayList<>();
+		BigDecimal sum = new BigDecimal(0);
+		for(Food f: orders) {
+			String currentPrice = f.getPrice();
+			o.setTotalPrice(currentPrice);
+			sum = sum.add(o.getTotalPrice()); 
+		}
+		return sum;
 	}
 
 }
