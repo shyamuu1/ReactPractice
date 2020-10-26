@@ -3,35 +3,44 @@ import {Food} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer } from '../../reducers/mealReducer';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
+import {data} from '../../util/mockdata';
+import Modal from "../../lib/Modal/Modal";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
 import "./Burger.css";
 
 
 const Burger:React.FC = () => {
     const [error, setError] = useState(null);
-    const [show, setShow] = useState(false);
+    const [purchasing, setPurchasing] = useState(false);
     const initialState:Food[] = [];
     const [orders, setOrders] = useState<Food[]>(initialState);
-    const [currentBurgers, dispatch] = useReducer(mealReducer, initialState);
-    console.log(orders, show);
+    const [currentBurgers, dispatch] = useReducer(mealReducer, data);
+    console.log(orders, purchasing);
 
-    useEffect(() => {
-        try{
-            sendGetRequest('http://localhost:8080/food/')
-            .then(resData =>
-                dispatch({type:"SET", meals:resData})
-            );
-        }catch(err){
-            console.log(err.message);
-        }
-    }, []);
+    // useEffect(() => {
+    //     try{
+    //         sendGetRequest('http://localhost:8080/food/')
+    //         .then(resData =>
+    //             dispatch({type:"SET", meals:resData})
+    //         );
+    //     }catch(err){
+    //         console.log(err.message);
+    //     }
+    // }, []);
 
     const onAddFoodHandler = (allOrders:Food) =>{
         setOrders([...orders, allOrders]);
-        setShow(true);
+        setPurchasing(true);
     };
+
+    const purchaseHandler = () => {
+        setPurchasing(true);
+    }
+
+    const purchaseCancelHandler = () => {
+        setPurchasing(false);
+    }
     
-    let orderSummary = (show)?<OrderModal show={show} currentOrder={orders[0]} />:null;
 
     const foods = useMemo(() => {
         if(currentBurgers.length){
@@ -46,9 +55,12 @@ const Burger:React.FC = () => {
         
     }, [currentBurgers]);
 
+    let orderSummary = (orders.length)?<OrderModal currentOrder={orders[0]} CloseModal={purchaseCancelHandler} />:null;
     return(
             <div className="Burger">
+                <Modal show={purchasing}>
                 {orderSummary}
+                </Modal>
             {foods}
             </div>
     );

@@ -13,3 +13,9 @@ justify-content: space-evenly;
     background: #603813;
     color:whitesmoke;
 }
+
+.modal-actions{
+    display:flex;
+    flex-flow: row;
+    justify-content: center;
+}
