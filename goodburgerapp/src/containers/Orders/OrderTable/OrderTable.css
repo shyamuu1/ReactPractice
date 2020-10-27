@@ -1,0 +1,30 @@
+.table-container {
+    min-width: 650px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 16px;
+    padding: 8px;
+}
+.table-container table{
+    border-spacing: 0;
+    -webkit-border-vertical-spacing: 2px;
+    width: 400px;
+}
+.order-header-rows{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    background: whitesmoke;
+    font-family: sans-serif;
+    height: 50px;
+}
+.order-rows{
+    font-family:'Open Sans';
+    box-sizing: border-box;
+    text-align: left;
+    background: whitesmoke;
+    height: 100px;
+}
+

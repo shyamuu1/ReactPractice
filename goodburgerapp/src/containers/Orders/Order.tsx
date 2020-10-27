@@ -2,6 +2,7 @@ import React, {useCallback, useState, useMemo, useEffect, useReducer} from 'reac
 import {Food, Order} from '../../util/types';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
 import OrderList from './OrderList/OrderList';
+import OrderTable from '../Orders/OrderTable/OrderTable';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
 import {orders} from '../../util/mockdata';
 import "./Orders.css";
@@ -37,7 +38,7 @@ const Orders:React.FC = () => {
     const submitOrdersHandler = useCallback(() => {
         try{
             sendPostRequest('http://localhost:8080/orders/', orders)
-            .then(resData => console.log(resData));
+            .then(resData => dispatch({type:"SET", meals:resData.orders}));
         }catch(error){
             console.log(error.message);
         }
@@ -60,21 +61,24 @@ const Orders:React.FC = () => {
     const orderList = useMemo(() => {
         if(currentOrders.length){
             return (
-                <OrderList allorders={currentOrders} onRemoveOrder={removeOrderHandler}/>
+                // <OrderList allorders={currentOrders} onRemoveOrder={removeOrderHandler}/>
+                <OrderTable allOrders={currentOrders} onRemoveFoodOrder={removeOrderHandler}/>
             );
         }
         
     }, [currentOrders, removeOrderHandler])
 
     return(
+        <div>
         <div className="Orders">
             <h2>GoodBurgers</h2>
             {orderList}
-            <div className="order-totals">
-                <p>Total Price:${total.toFixed(2)} </p>
+            <p>Total Price: ${total.toFixed(2)} </p>
+            </div>       
+                <div className="order-btns">
                 <button type="submit" onClick={submitOrdersHandler}>Complete Order</button>
                 <button>Cancel Order</button>
-            </div>
+                </div>
         </div>
     );
 };

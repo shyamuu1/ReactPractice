@@ -1,15 +1,19 @@
-/* .Orders{
+.Orders{
     display: flex;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
+    justify-content: center;
     width:100%;
 }
-
-.Orders h2{
-    text-align: center;
+.Orders p {
+    font-weight: bold;
+    font-family: "-apple-system";
+    font-size: large;
 }
-
-.order-summary p{
+.order-btns{
     display:flex;
     flex-direction: row;
-} */
+    align-items:center;
+    justify-content: flex-end;
+    
+}

@@ -58,6 +58,7 @@ public class OrderService {
 		return o;
 	}
 	
+	
 	private static BigDecimal updateTotal(List<Food> orders, Order o) {
 		ArrayList<BigDecimal> prices = new ArrayList<>();
 		BigDecimal sum = new BigDecimal(0);
@@ -73,12 +74,12 @@ public class OrderService {
 		return orders.stream().filter(order -> !order.getId().equals(foodId.toHexString())).collect(Collectors.toList());
 	}
 	
-	private static void printList(List<Food> arr, ObjectId id) {
-		int idx =0;
-		for(Food f: arr) {
-			idx++;
-			System.out.println(idx+") "+f.toString());
-		}
-	}
+//	private static void printList(List<Food> arr, ObjectId id) {
+//		int idx =0;
+//		for(Food f: arr) {
+//			idx++;
+//			System.out.println(idx+") "+f.toString());
+//		}
+//	}
 
 }
