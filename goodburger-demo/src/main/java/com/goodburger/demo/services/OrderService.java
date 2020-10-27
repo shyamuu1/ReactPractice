@@ -42,12 +42,12 @@ public class OrderService {
 		return o.getOrders();
 	}
 	
-//	public void deleteFoodInOrder(OrderId, foodId) {
+	public void deleteFoodInOrder(Order o, ObjectId foodId) {
 			//get Order
 			//get list of orders
 			//delete food Id that matches foodId in all Orders
 			//reflect on database and frontend
-//	}
+	}
 	
 	private static BigDecimal updateTotal(List<Food> orders, Order o) {
 		ArrayList<BigDecimal> prices = new ArrayList<>();
