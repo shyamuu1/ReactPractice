@@ -28,6 +28,13 @@ export interface OrderAddAction{
     order:Order;
 }
 
-export type OrderActionType = OrderAddAction;
+export interface OrderSetAction{
+    type:"SET",
+    id:string;
+    orders:Food[];
+    totalPrice:string;
+}
+
+export type OrderActionType = OrderAddAction|OrderSetAction;
 
 export type FoodActionType = FoodSETAction | FoodDeleteAction;

@@ -4,9 +4,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.goodburger.demo.models.Food;
@@ -17,10 +22,12 @@ import com.goodburger.demo.repositories.OrderRepository;
 public class OrderService {
 	
 	private OrderRepository orderRepo;
+	private MongoTemplate mongoTemplate;
 	
 	@Autowired
-	public OrderService(OrderRepository orderRepo) {
+	public OrderService(OrderRepository orderRepo, MongoTemplate mongoTemplate) {
 		this.orderRepo = orderRepo;
+		this.mongoTemplate = mongoTemplate;
 	}
 	
 	public Order createOrder(Food[] allOrders) {
@@ -42,11 +49,13 @@ public class OrderService {
 		return o.getOrders();
 	}
 	
-	public void deleteFoodInOrder(Order o, ObjectId foodId) {
-			//get Order
-			//get list of orders
-			//delete food Id that matches foodId in all Orders
-			//reflect on database and frontend
+	public Order deleteFoodInOrder(Order o, ObjectId foodId) {
+		System.out.println("IN ORDER SERVICE");
+		List<Food> currentorders = o.getOrders();
+		List<Food> filteredOrders = getFilteredOutput(currentorders, foodId);
+		o.setOrders(filteredOrders);
+		this.orderRepo.save(o);
+		return o;
 	}
 	
 	private static BigDecimal updateTotal(List<Food> orders, Order o) {
@@ -58,6 +67,18 @@ public class OrderService {
 			sum = sum.add(o.getTotalPrice()); 
 		}
 		return sum;
+	}
+	
+	private static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
+		return orders.stream().filter(order -> !order.getId().equals(foodId.toHexString())).collect(Collectors.toList());
+	}
+	
+	private static void printList(List<Food> arr, ObjectId id) {
+		int idx =0;
+		for(Food f: arr) {
+			idx++;
+			System.out.println(idx+") "+f.toString());
+		}
 	}
 
 }

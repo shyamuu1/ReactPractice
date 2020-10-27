@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +42,16 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/{id}",  method=RequestMethod.POST)
-	public void deleteFood(@RequestBody Order order, @PathVariable ObjectId id) {
-		//doStuff
+	public ResponseEntity<Order> deleteFood(@RequestBody Order order, @PathVariable ObjectId id) {
+		ResponseEntity<Order> OrderResp  = null;
+		try {
+			Order updatedorder = this.os.deleteFoodInOrder(order, id);
+			OrderResp = new ResponseEntity<Order>(updatedorder, HttpStatus.OK);
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+		return OrderResp;
+		
 	}
 
 }
