@@ -10,13 +10,13 @@ interface Props{
 }
 
 const OrderTable = ({allOrders, onRemoveFoodOrder}:Props) => {
-    const [currentOrders, setOrders] = useState<Food[]>(allOrders);
+    const [currentOrders, setOrders] = useState<Food[]>(orders);
 
     
 
     return (
         <div className="table-container">
-            <table>
+            <table className="order-table">
                 <thead>
                 <tr className="order-header-rows">
                 <td>Quantity</td>
