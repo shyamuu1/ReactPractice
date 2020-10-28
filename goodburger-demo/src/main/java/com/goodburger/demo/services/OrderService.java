@@ -30,36 +30,62 @@ public class OrderService {
 		this.mongoTemplate = mongoTemplate;
 	}
 	
-	public Order createOrder(Food[] allOrders) {
-		Order currentOrder = new Order();
-		List<Food> currentOrders = Arrays.asList(allOrders);
-		BigDecimal totalPrice = updateTotal(currentOrders, currentOrder);
-		currentOrder.setId(ObjectId.get());
-		currentOrder.setOrders(currentOrders);
-		currentOrder.setTotalPrice(totalPrice.toString());
-		this.orderRepo.save(currentOrder);
-		return currentOrder;
-	}
-	
 	public List<Order> getAllOrders(){
 		return this.orderRepo.findAll();
 	}
+	
 	public List<Food> getallOrdersById(ObjectId id){
 		Order o = this.orderRepo.findBy_id(id);
 		return o.getOrders();
 	}
 	
+	public Order createOrder(Food[] allOrders) {
+		Order currentOrder = new Order();
+		List<Food> currentOrders = Arrays.asList(allOrders);
+		String totalPrice = updateTotal(currentOrders, currentOrder);
+		currentOrder.setId(ObjectId.get());
+		updateOrder(currentOrder, currentOrders, totalPrice);
+		this.orderRepo.save(currentOrder);
+		return currentOrder;
+	}
+	public Order createDefaultOrderById(ObjectId id) {
+		Order o = new Order();
+		o.setId(id);
+		o.setOrders(new ArrayList<Food>());
+		o.setTotalPrice("0.00");
+		return o;
+	}
+	
+	public String addFoodToOrder(Food f, ObjectId id) {
+		Order currentOrder = this.orderRepo.findBy_id(id);
+		if(currentOrder == null) {
+			currentOrder = createDefaultOrderById(id);
+		}
+		List<Food> currentOrders = currentOrder.getOrders();
+		currentOrders.add(f);
+		String currentTotal = updateTotal(currentOrders, currentOrder);
+		updateOrder(currentOrder, currentOrders, currentTotal);
+		this.orderRepo.save(currentOrder);
+		return currentOrder.getId();
+		
+	}
+	
+	
+	
 	public Order deleteFoodInOrder(Order o, ObjectId foodId) {
 		System.out.println("IN ORDER SERVICE");
 		List<Food> currentorders = o.getOrders();
 		List<Food> filteredOrders = getFilteredOutput(currentorders, foodId);
-		o.setOrders(filteredOrders);
+		String total = updateTotal(filteredOrders, o);
+		updateOrder(o,filteredOrders, total);
 		this.orderRepo.save(o);
 		return o;
 	}
 	
+//HELPER METHODS
 	
-	private static BigDecimal updateTotal(List<Food> orders, Order o) {
+	//helper method to get totalPrice of the food items
+	private static String updateTotal(List<Food> orders, Order o) {
 		ArrayList<BigDecimal> prices = new ArrayList<>();
 		BigDecimal sum = new BigDecimal(0);
 		for(Food f: orders) {
@@ -67,11 +93,17 @@ public class OrderService {
 			o.setTotalPrice(currentPrice);
 			sum = sum.add(o.getTotalPrice()); 
 		}
-		return sum;
+		return sum.toString();
 	}
-	
+	//helper method to delete an foodItem from an Order
 	private static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
 		return orders.stream().filter(order -> !order.getId().equals(foodId.toHexString())).collect(Collectors.toList());
+	}
+	
+	//updates the food list and total Price
+	private static void updateOrder(Order o, List<Food> myOrders, String totalPrice) {
+		o.setOrders(myOrders);
+		o.setTotalPrice(totalPrice);
 	}
 	
 //	private static void printList(List<Food> arr, ObjectId id) {

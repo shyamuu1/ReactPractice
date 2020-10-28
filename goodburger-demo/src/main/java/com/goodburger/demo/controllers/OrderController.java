@@ -35,20 +35,40 @@ public class OrderController {
 	public List<Order> getOrders(){
 		return this.os.getAllOrders();
 	}
+	@GetMapping("/orderId")
+	public String getOrderId() {
+		return ObjectId.get().toHexString();
+	}
 	
 	@PostMapping("/")
 	public Order addOrders(@RequestBody Food[] orders) {
 		return this.os.createOrder(orders);
 	}
 	
-	@RequestMapping(value="/{id}",  method=RequestMethod.POST)
-	public ResponseEntity<Order> deleteFood(@RequestBody Order order, @PathVariable ObjectId id) {
+	@RequestMapping(value="/addFood/{orderId}", method=RequestMethod.POST)
+	public ResponseEntity<String> addFoodtoOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
+		ResponseEntity<String> resp = null;
+		try {
+			String order_id =this.os.addFoodToOrder(food, orderId);
+			if(order_id != null) {
+				resp = new ResponseEntity<String>(order_id, HttpStatus.OK);
+			}else {
+				resp = new ResponseEntity<String>("Food object was not added to the Order", HttpStatus.BAD_REQUEST);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
+	
+	@RequestMapping(value="/{foodId}",  method=RequestMethod.POST)
+	public ResponseEntity<Order> deleteFood(@RequestBody Order order, @PathVariable ObjectId foodId) {
 		ResponseEntity<Order> OrderResp  = null;
 		try {
-			Order updatedorder = this.os.deleteFoodInOrder(order, id);
+			Order updatedorder = this.os.deleteFoodInOrder(order, foodId);
 			OrderResp = new ResponseEntity<Order>(updatedorder, HttpStatus.OK);
 		}catch(Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 		return OrderResp;
 		

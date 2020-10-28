@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 import {Food} from "../../../util/types";
 import './OrderModal.css';
 interface Props {
-    // show:Boolean;
     currentOrder:Food;
     CloseModal:() => void;
 }
 const OrderModal:React.FC<Props> = ({currentOrder, CloseModal}:Props) => {
-    // const [open, setOpen] = useState<Boolean>(show);
     const [order, setOrder] = useState<Food>(currentOrder);
     const [checkout, addToCheckout] = useState<Food[]>([]);
 
@@ -38,7 +36,8 @@ const OrderModal:React.FC<Props> = ({currentOrder, CloseModal}:Props) => {
                     <button type="submit" onClick={checkoutClickHandler}>Add to Checkout</button>
                 </div>
         </div>
-    )
-}
+        
+    );
+};
 
 export default OrderModal;
