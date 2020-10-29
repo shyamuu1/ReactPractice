@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Food} from "../../../util/types";
+import Btn from '../../../lib/Button/Button';
 import './OrderModal.css';
 interface Props {
     addOrder:(food:Food) => void;
@@ -30,7 +31,8 @@ const OrderModal:React.FC<Props> = ({order, addOrder, CloseModal}:Props) => {
                     <p>quantity</p>
                 </div>
                 <div className="modal-actions">
-                    <button type="submit" onClick={checkoutClickHandler}>Add to Checkout</button>
+                    <Btn clicked={checkoutClickHandler}>Add to Checkout</Btn>
+                    {/* <button type="submit" onClick={checkoutClickHandler}>Add to Checkout</button> */}
                 </div>
         </div>
         
