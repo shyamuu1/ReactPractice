@@ -21,14 +21,14 @@ const OrderModal:React.FC<Props> = ({order, addOrder, CloseModal}:Props) => {
         <div className="orderModal-container">
                 <div className="modal-header">
                 <h2>Order Details</h2>
-                <span><button type="button" onClick={CloseModal}>&#10005;</button></span>
+                <span><button className="order-close" type="button" onClick={CloseModal}>&#10005;</button></span>
                 </div>
                 <div className="image"></div>
                 <div className="modal-body">
-                    <p><strong>Title:{order.name}</strong></p>
-                    <p>Description:{order.decription}</p>
-                    <p>Price:{order.price}</p>
-                    <p>quantity</p>
+                    <p><strong>{order.name}</strong></p>
+                    <p>Description: {order.decription}</p>
+                    <p>Price: ${order.price}</p>
+                    <p>Quantity: <span className="order-quantity"><input type="text" className="quantity-input"/></span></p>
                 </div>
                 <div className="modal-actions">
                     <Btn clicked={checkoutClickHandler}>Add to Checkout</Btn>

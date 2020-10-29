@@ -13,9 +13,22 @@ justify-content: space-evenly;
     background: #603813;
     color:whitesmoke;
 }
+.quantity-input{
+    border-radius: 40px;
+    
+}
 
 .modal-actions{
     display:flex;
     flex-flow: row;
     justify-content: center;
+}
+.order-close{
+    background-color: transparent;
+    color: whitesmoke;
+    border:none;
+    font-size: inherit;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 10px;
 }

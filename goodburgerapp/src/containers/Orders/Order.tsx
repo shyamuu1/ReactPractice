@@ -15,8 +15,9 @@ const initialState:Order = {
 const Orders:React.FC = () => {
     const [currentOrders, dispatch] = useReducer(mealReducer, initialState.orders);
     const [order,orderDispatch] = useReducer(orderReducer, initialState);
-    const [purchasing, setPurchasing] = useState(false);
-    const [orderId, setOrderID] =  useState(initialState.id);
+    const [isLoading, setLoading] = useState(false);
+    // const [purchasing, setPurchasing] = useState(false);
+    // const [orderId, setOrderID] =  useState(initialState.id);
     //const [totalPrice, setTotalPrice] = useState(0);
     //get current Order
     useEffect(() => {
@@ -55,7 +56,7 @@ const Orders:React.FC = () => {
             console.log(err.message);
         }
         dispatch({type:"DELETE", id:FoodId});
-    }, [order,  sendPostRequest]);
+    }, [order]);
 
     //rerenders the component when currentOrders change or an order has been removed
     const orderList = useMemo(() => {
