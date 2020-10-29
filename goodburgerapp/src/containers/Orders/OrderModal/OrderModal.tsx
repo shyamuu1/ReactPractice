@@ -2,18 +2,15 @@ import React, {useState} from 'react';
 import {Food} from "../../../util/types";
 import './OrderModal.css';
 interface Props {
-    currentOrder:Food;
+    addOrder:(food:Food) => void;
     CloseModal:() => void;
+    order:Food;
 }
-const OrderModal:React.FC<Props> = ({currentOrder, CloseModal}:Props) => {
-    const [order, setOrder] = useState<Food>(currentOrder);
-    const [checkout, addToCheckout] = useState<Food[]>([]);
-
-    console.log(checkout);
+const OrderModal:React.FC<Props> = ({order, addOrder, CloseModal}:Props) => {
 
     const checkoutClickHandler = (event:any) => {
         event.preventDefault();
-        addToCheckout([...checkout, currentOrder]);
+        addOrder(order);
         CloseModal();
 
     }

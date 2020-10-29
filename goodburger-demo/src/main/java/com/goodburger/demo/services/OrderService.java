@@ -9,11 +9,9 @@ import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.goodburger.demo.models.Food;
 import com.goodburger.demo.models.Order;
 import com.goodburger.demo.repositories.OrderRepository;
@@ -34,6 +32,7 @@ public class OrderService {
 		return this.orderRepo.findAll();
 	}
 	
+	
 	public List<Food> getallOrdersById(ObjectId id){
 		Order o = this.orderRepo.findBy_id(id);
 		return o.getOrders();
@@ -45,6 +44,7 @@ public class OrderService {
 		String totalPrice = updateTotal(currentOrders, currentOrder);
 		currentOrder.setId(ObjectId.get());
 		updateOrder(currentOrder, currentOrders, totalPrice);
+		System.out.println(currentOrder.toString());
 		this.orderRepo.save(currentOrder);
 		return currentOrder;
 	}
@@ -56,7 +56,7 @@ public class OrderService {
 		return o;
 	}
 	
-	public String addFoodToOrder(Food f, ObjectId id) {
+	public void addFoodToOrder(Food f, ObjectId id) {
 		Order currentOrder = this.orderRepo.findBy_id(id);
 		if(currentOrder == null) {
 			currentOrder = createDefaultOrderById(id);
@@ -66,7 +66,6 @@ public class OrderService {
 		String currentTotal = updateTotal(currentOrders, currentOrder);
 		updateOrder(currentOrder, currentOrders, currentTotal);
 		this.orderRepo.save(currentOrder);
-		return currentOrder.getId();
 		
 	}
 	

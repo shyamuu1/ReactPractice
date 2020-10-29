@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,10 +36,6 @@ public class OrderController {
 	public List<Order> getOrders(){
 		return this.os.getAllOrders();
 	}
-	@GetMapping("/orderId")
-	public String getOrderId() {
-		return ObjectId.get().toHexString();
-	}
 	
 	@PostMapping("/")
 	public Order addOrders(@RequestBody Food[] orders) {
@@ -49,12 +46,8 @@ public class OrderController {
 	public ResponseEntity<String> addFoodtoOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
 		ResponseEntity<String> resp = null;
 		try {
-			String order_id =this.os.addFoodToOrder(food, orderId);
-			if(order_id != null) {
-				resp = new ResponseEntity<String>(order_id, HttpStatus.OK);
-			}else {
-				resp = new ResponseEntity<String>("Food object was not added to the Order", HttpStatus.BAD_REQUEST);
-			}
+			this.os.addFoodToOrder(food, orderId);
+			resp = new ResponseEntity<String>("Sucessfully updated list of orders", HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

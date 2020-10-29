@@ -12,7 +12,7 @@
 .Modal{
     position: fixed;
     z-index: 500;
-    background-color: khaki;
+    background-color:whitesmoke;
     width: 70%;
     border: 1px solid black;
     box-shadow: 1px 1px 1px black;
