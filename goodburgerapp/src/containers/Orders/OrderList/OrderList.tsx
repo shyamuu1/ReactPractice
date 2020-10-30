@@ -1,15 +1,16 @@
 import React,{useState} from 'react';
 import {Food} from '../../../util/types';
-import Card from "../../../lib/Card/card";
 import './OrderList.css';
+import TrashBin from '../../../components/Icons/Icon';
+
 interface Props {
-    allorders:Food[];
-    onRemoveOrder: (id:string) => void;
+    allOrders:Food[];
+    onRemoveFoodOrder: (id:string) => void;
 }
 
-const OrderList:React.FC<Props> = ({allorders, onRemoveOrder}:Props) => {
-    const [currentOrders, setCurrentOrders] = useState(allorders);
-    console.log(allorders)
+const OrderList:React.FC<Props> = ({allOrders, onRemoveFoodOrder}:Props) => {
+    const [currentOrders, setCurrentOrders] = useState(allOrders);
+    console.log(allOrders)
     return (
         <ul className="order-list">
             {currentOrders.map((order) => (
@@ -25,7 +26,7 @@ const OrderList:React.FC<Props> = ({allorders, onRemoveOrder}:Props) => {
                         price: ${Number.parseFloat(order.price).toFixed(2)}
                     </div>
                     <div className="order-del">
-                        <button onClick={()=>{onRemoveOrder(order.id)}}><i className="fa fa-trash-o"></i></button>
+                        <button onClick={()=>{onRemoveFoodOrder(order.id)}}><TrashBin/></button>
                     </div>
                     </div>
                 </li>

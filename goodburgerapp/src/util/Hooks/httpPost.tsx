@@ -8,8 +8,24 @@ const initialState:httpState = {
     error: null
 }
 
-const usePost = () => {
+const useHttp = () => {
     const [httpState, dispatchHttp] = useReducer(httpReducer,initialState);
+
+    const sendGetRequest = useCallback((url:string) => {
+        dispatchHttp({type:"SEND"})
+        fetch(url, {
+            method:"GET",
+            headers:{"Content-Type":"application/json"}
+        })
+        .then(res => res.json())
+        .then(resp => {
+            dispatchHttp({type:"RESPONSE", responseData:resp})
+        })
+        .catch(err => {
+            dispatchHttp({type:"ERROR", errorMessage:err.message})
+        })
+    },[]);
+    
     const sendPostRequest = useCallback((url:string, reqBody:any) => {
         dispatchHttp({type:"SEND"});
         fetch(url, {
@@ -28,9 +44,10 @@ const usePost = () => {
     return {
         isloading:httpState.loading,
         data:httpState.data,
+        sendGetRequest:sendGetRequest,
         sendPostRequest: sendPostRequest,
         error:httpState.error
     }
 }
 
-export default usePost;
+export default useHttp;

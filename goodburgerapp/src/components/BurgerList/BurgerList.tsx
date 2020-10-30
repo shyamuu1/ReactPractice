@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BurgerCard from './BurgerListItem/BurgerCard';
 import {Food} from '../../util/types';
 import "./BurgerList.css";
@@ -16,15 +16,18 @@ const BurgerList = ({allFood, drinks, getFood}:Props) => {
             <h2>GoodBurgers</h2>
             <ul>
                 {allFood.map((food:Food) => (
-                    <BurgerCard Bkey={food.id} burger={food} 
-                    addFood={() => {getFood(food)}}/>  
+                    <li key={food.id} onClick={()=>{getFood(food)}}>
+                    <BurgerCard burger={food} />
+                    </li>  
                 ))}
             </ul>
             <div>
                 <h2>Drinks</h2>
                 <ul>
                     {drinks.map((drink:Food) => (
-                        <BurgerCard Bkey={drink.id} burger={drink} addFood={() => {getFood(drink)}}/>
+                        <li key={drink.id} onClick={()=>{getFood(drink)}}>
+                        <BurgerCard  burger={drink} />
+                        </li>
                     ))}
                 </ul>
             </div>

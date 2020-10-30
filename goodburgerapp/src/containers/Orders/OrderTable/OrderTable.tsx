@@ -9,11 +9,11 @@ interface Props{
     onRemoveFoodOrder: (id:string) => void;
 }
 
-const OrderTable = ({allOrders, onRemoveFoodOrder}:Props) => {
+const OrderTable = React.memo(({allOrders, onRemoveFoodOrder}:Props) => {
     const [currentOrders, setOrders] = useState<Food[]>(allOrders);
-
-    
-
+    if(allOrders.length !== currentOrders.length){
+        setOrders(allOrders);
+    }
     return (
         <div className="table-container">
             <table className="order-table">
@@ -26,17 +26,20 @@ const OrderTable = ({allOrders, onRemoveFoodOrder}:Props) => {
                 </tr>
                 </thead>
                 <tbody>
-                    {currentOrders.map(row => 
+                    {currentOrders && currentOrders.map(row => 
                         <tr className="order-rows" key={row.id}>
                             <td>1</td>
                             <td>{row.name}</td>
                             <td>{row.price}</td>
-                            <td onClick={()=>{onRemoveFoodOrder(row.id)}}><TrashBin/></td>
+                            <td onClick={() => {
+                                onRemoveFoodOrder(row.id);
+                            }}><button className="order-delete-btn" ><TrashBin/></button></td>
                         </tr>)}
                 </tbody>
             </table>
         </div>
     );
-};
+}
+);
 
 export default OrderTable;

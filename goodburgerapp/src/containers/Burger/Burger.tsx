@@ -3,7 +3,6 @@ import {Food, Order} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
-import {data} from '../../util/mockdata';
 import Loader from '../../lib/Loader/Loader';
 import Modal from "../../lib/Modal/Modal";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
@@ -17,43 +16,62 @@ const DEFUALT_ORDER:Order = {
 const Burger:React.FC = () => {
     // const [error, setError] = useState(null);
     const initalState:Food[]=[];
+    const [isMounted, setMounted] = useState<Boolean>(true);
+    const [isLoading, setLoading] = useState<Boolean>(false)
     const [purchasing, setPurchasing] = useState(false);
-    const [orderId, setOrderId] = useState(DEFUALT_ORDER.id);
     const [orders, setOrders] = useState<Food[]>(DEFUALT_ORDER.orders);
     const [currentOrder, setCurrentOrder] = useReducer(orderReducer, DEFUALT_ORDER);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initalState);
 
     useEffect(() => {
         try{
-            sendGetRequest('http://localhost:8080/food/')
-            .then(resData =>
-                dispatch({type:"SET", meals:resData})
-            );
-            sendGetRequest('http://localhost:8080/orders/')
-            .then(resData => {
-                setCurrentOrder({type:"SET", id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
-            });
+            if (isMounted){
+                getAllMenuItems();
+                getOrder();
+            }
+            return () => {setMounted(false)};
         }catch(err){
             console.log(err.message);
         }
     }, []);
 
+    const getAllMenuItems = () => {
+        setLoading(true)
+        sendGetRequest('http://localhost:8080/food/')
+            .then(resData =>{
+                setLoading(false);
+                dispatch({type:"SET", meals:resData})
+            }
+            );
+    }
 
+    const getOrder = () => {
+        setLoading(true);
+        sendGetRequest('http://localhost:8080/orders/')
+            .then(resData => {
+                setLoading(false);
+                setCurrentOrder({type:"SET", id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
+            });
+    }
     const onAddFoodHandler = useCallback((allOrders:Food) =>{
         try{
+            setLoading(true);
             sendPostRequest(`http://localhost:8080/orders/addFood/${currentOrder.id}`, allOrders)
-            .then(resData => console.log(resData));
+            .then(resData => {
+                setLoading(false);
+                console.log(resData)
+            });
         }catch(err){
             console.log(err.message);
         }finally{
-            setPurchasing(true);
+            purchaseHandler();
         }
         
     }, [currentOrder]);
 
     const addFoodToListHandler = (food:Food) => {
         setOrders([...orders,food]);
-        setPurchasing(true);
+        purchaseHandler();
     }
 
     const purchaseHandler = () => {
@@ -83,7 +101,7 @@ const Burger:React.FC = () => {
                 <Modal show={purchasing}>
                 {orderSummary}
                 </Modal>
-            {foods}
+            {(isLoading)?<Loader />:foods}
             </div>
     );
 }
