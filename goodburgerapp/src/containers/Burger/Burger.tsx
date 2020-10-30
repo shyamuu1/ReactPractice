@@ -4,6 +4,7 @@ import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
 import {data} from '../../util/mockdata';
+import Loader from '../../lib/Loader/Loader';
 import Modal from "../../lib/Modal/Modal";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
 import "./Burger.css";
@@ -76,7 +77,7 @@ const Burger:React.FC = () => {
         }
     }, [currentBurgers]);
 
-    let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:null;
+    let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
     return(
             <div className="Burger">
                 <Modal show={purchasing}>

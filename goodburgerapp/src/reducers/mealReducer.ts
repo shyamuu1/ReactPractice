@@ -1,3 +1,4 @@
+import { orders } from "../util/mockdata";
 import { Food,Order,  FoodActionType, OrderActionType } from "../util/types";
 
 
@@ -22,6 +23,10 @@ export const orderReducer = (currentOrder:Order, action:OrderActionType) => {
                 id:action.id,
                 orders: action.orders,
                 totalPrice:action.totalPrice
+            };
+        case "UPDATE":
+            return{...currentOrder,
+                orders:action.orders
             };
         default:
             return currentOrder;

@@ -71,14 +71,14 @@ public class OrderService {
 	
 	
 	
-	public Order deleteFoodInOrder(Order o, ObjectId foodId) {
+	public List<Food> deleteFoodInOrder(Order o, ObjectId foodId) {
 		System.out.println("IN ORDER SERVICE");
 		List<Food> currentorders = o.getOrders();
 		List<Food> filteredOrders = getFilteredOutput(currentorders, foodId);
 		String total = updateTotal(filteredOrders, o);
 		updateOrder(o,filteredOrders, total);
 		this.orderRepo.save(o);
-		return o;
+		return o.getOrders();
 	}
 	
 //HELPER METHODS

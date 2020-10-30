@@ -15,7 +15,7 @@ justify-content: space-evenly;
 }
 .quantity-input{
     border-radius: 40px;
-    
+
 }
 
 .modal-actions{
@@ -26,6 +26,7 @@ justify-content: space-evenly;
 .order-close{
     background-color: transparent;
     color: whitesmoke;
+    outline: whitesmoke 4px solid;
     border:none;
     font-size: inherit;
     font-weight: bolder;

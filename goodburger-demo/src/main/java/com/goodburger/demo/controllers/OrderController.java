@@ -55,15 +55,8 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/{foodId}",  method=RequestMethod.POST)
-	public ResponseEntity<Order> deleteFood(@RequestBody Order order, @PathVariable ObjectId foodId) {
-		ResponseEntity<Order> OrderResp  = null;
-		try {
-			Order updatedorder = this.os.deleteFoodInOrder(order, foodId);
-			OrderResp = new ResponseEntity<Order>(updatedorder, HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return OrderResp;
+	public List<Food> deleteFood(@RequestBody Order order, @PathVariable ObjectId foodId) {
+		return this.os.deleteFoodInOrder(order, foodId);
 		
 	}
 

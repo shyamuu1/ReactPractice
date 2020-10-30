@@ -13,6 +13,13 @@ export type Order = {
     totalPrice:string;
 }
 
+export type httpState ={
+    data:any;
+    loading:Boolean;
+    error:string | null;
+}
+
+
 export interface FoodSETAction {
     type: "SET";
     meals: Food[];
@@ -23,11 +30,10 @@ export interface FoodDeleteAction{
     id:string;
 }
 
-export interface OrderAddAction{
-    type:"ADD";
-    order:Order;
+export interface updateOrderAction{
+    type:"UPDATE"
+    orders:Food[];
 }
-
 export interface OrderSetAction{
     type:"SET",
     id:string;
@@ -35,6 +41,6 @@ export interface OrderSetAction{
     totalPrice:string;
 }
 
-export type OrderActionType = OrderAddAction|OrderSetAction;
+export type OrderActionType = updateOrderAction|OrderSetAction;
 
 export type FoodActionType = FoodSETAction | FoodDeleteAction;
