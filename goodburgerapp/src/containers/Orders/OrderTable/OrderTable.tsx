@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {orders} from '../../../util/mockdata';
 import { Food } from '../../../util/types';
 import TrashBin from "../../../components/Icons/Icon";
 import "./OrderTable.css";

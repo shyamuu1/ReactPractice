@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Food} from '../../../util/types';
 import Card from '../../../lib/Card/card';
-import OrderModal from "../../../containers/Orders/OrderModal/OrderModal";
 
 interface Props {
     burger:Food;
-    
-    
 }
+
 const BurgerCard:React.FC<Props> = ({burger}:Props) => {
     return (
             <Card>

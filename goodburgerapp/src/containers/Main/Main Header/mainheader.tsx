@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import React, {FC} from 'react';
 import "./mainheader.css";
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Food} from "../../../util/types";
 import Btn from '../../../lib/Button/Button';
 import './OrderModal.css';

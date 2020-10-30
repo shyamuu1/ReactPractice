@@ -2,7 +2,7 @@ import React, {useState, useReducer, useEffect, useMemo, useCallback} from 'reac
 import {Food, Order} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
-import {sendPostRequest, sendGetRequest} from "../../util/http-service";
+import {sendGetRequest} from "../../util/http-service";
 import Loader from '../../lib/Loader/Loader';
 import Modal from "../../lib/Modal/Modal";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
@@ -33,7 +33,7 @@ const Burger:React.FC = () => {
         }catch(err){
             console.log(err.message);
         }
-    }, []);
+    }, [isMounted]);
 
     const getAllMenuItems = () => {
         setLoading(true)
@@ -55,28 +55,29 @@ const Burger:React.FC = () => {
     }
     const onAddFoodHandler = useCallback((allOrders:Food) =>{
         try{
+            setPurchasing(true);
             setLoading(true);
-            sendPostRequest(`http://localhost:8080/orders/addFood/${currentOrder.id}`, allOrders)
+            fetch(`http://localhost:8080/orders/addFood/${currentOrder.id}`, {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body: JSON.stringify(allOrders)
+            })
+            .then(res => res)
             .then(resData => {
                 setLoading(false);
                 console.log(resData)
             });
         }catch(err){
             console.log(err.message);
-        }finally{
-            purchaseHandler();
         }
         
     }, [currentOrder]);
 
-    const addFoodToListHandler = (food:Food) => {
+    const addFoodToListHandler = useCallback((food:Food) => {
         setOrders([...orders,food]);
-        purchaseHandler();
-    }
+        setPurchasing(true)
+    },[orders]);
 
-    const purchaseHandler = () => {
-        setPurchasing(true);
-    }
 
     const purchaseCancelHandler = () => {
         setPurchasing(false);
@@ -93,7 +94,7 @@ const Burger:React.FC = () => {
                 </div>
             );
         }
-    }, [currentBurgers]);
+    }, [currentBurgers, addFoodToListHandler]);
 
     let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
     return(
@@ -101,7 +102,7 @@ const Burger:React.FC = () => {
                 <Modal show={purchasing}>
                 {orderSummary}
                 </Modal>
-            {(isLoading)?<Loader />:foods}
+            {foods}
             </div>
     );
 }

@@ -32,7 +32,7 @@ const Orders:React.FC = () => {
         }catch(err){
             console.log(err.message);
         }
-    }, [])
+    },[])
 
     const refreshList = () => {
         setLoading(true);
@@ -64,12 +64,12 @@ const Orders:React.FC = () => {
                 router.push("/");
             }
         }
-    }, [sendPostRequest]);
+    }, [foodList, isLoading, router]);
 
     
 
     //Removes Orders
-    const removeOrderHandler = (FoodId:string)=> {
+    const removeOrderHandler = useCallback((FoodId:string)=> {
         try{
             setLoading(true);
             sendPostRequest(`http://localhost:8080/orders/${FoodId}`, currentOrder)
@@ -81,7 +81,7 @@ const Orders:React.FC = () => {
         }catch(err){
             console.log(err.message);
         }
-    };
+    },[currentOrder]);
 
     //rerenders the component when currentOrders change or an order has been removed
     const orderList = useMemo(() => {
@@ -91,7 +91,7 @@ const Orders:React.FC = () => {
                 <OrderTable allOrders={foodList} onRemoveFoodOrder={removeOrderHandler}/>
             );
                 }   
-    }, [foodList, removeOrderHandler]);
+    }, [foodList, currentOrder, removeOrderHandler]);
 
     return(
         <div>

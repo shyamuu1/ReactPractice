@@ -1,4 +1,4 @@
-import { Food } from "./types";
+
 
 export const sendGetRequest= async(url:string)=> {
     const response = await fetch(url, {

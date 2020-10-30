@@ -1,4 +1,4 @@
-import { orders } from "../util/mockdata";
+
 import { Food,Order,  FoodActionType, OrderActionType } from "../util/types";
 
 
