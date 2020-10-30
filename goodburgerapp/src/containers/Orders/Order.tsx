@@ -91,7 +91,6 @@ const Orders:React.FC = () => {
     const orderList = useMemo(() => {
         if(foodList.length && !isLoading){
             return (
-                // <OrderList allorders={currentOrders} onRemoveOrder={removeOrderHandler}/>
                 <OrderTable allOrders={foodList} onRemoveFoodOrder={removeOrderHandler}/>
             );
         }
@@ -102,7 +101,7 @@ const Orders:React.FC = () => {
         <div>
         <div className="Orders">
             <h2>GoodBurgers</h2>
-            {orderList}
+            {(isLoading)?<Loader />:orderList}
             <p>Total Price: ${total.toFixed(2)} </p>
             </div>       
                 <div className="order-btns">
