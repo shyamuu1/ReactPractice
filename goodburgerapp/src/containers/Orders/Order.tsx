@@ -62,20 +62,34 @@ const Orders:React.FC = () => {
     //Removes Orders
     const removeOrderHandler = useCallback((FoodId:string)=> {
         try{
-            dispatch({type:"DELETE", id:FoodId});
-            sendPostRequest(`http://localhost:8080/orders/${FoodId}`, currentOrder)
-            .then(resData => {
-                dispatch({type:"SET", meals:resData})
-            });
-            
+            setLoading(true);
+            fetch(`http://localhost:8080/orders/${FoodId}`, {
+                method:"POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify(currentOrder)
+            })
+            .then(res => res.json())
+            .then((resData) => {
+                setLoading(false);
+                dispatch({type:"SET", meals:resData});
+                dispatch({type:"DELETE", id:FoodId});
+            }) 
         }catch(err){
             console.log(err.message);
         }
-    }, [currentOrder, foodList]);
+    }, [currentOrder,  foodList]);
+
+    let orderTable = null;
+    if(foodList.length){
+        orderTable = <OrderTable allOrders={foodList} onRemoveFoodOrder={removeOrderHandler}/>;
+    }
+    if(isLoading){
+        orderTable = <Loader />;
+    }
 
     //rerenders the component when currentOrders change or an order has been removed
     const orderList = useMemo(() => {
-        if(foodList.length){
+        if(foodList.length && !isLoading){
             return (
                 // <OrderList allorders={currentOrders} onRemoveOrder={removeOrderHandler}/>
                 <OrderTable allOrders={foodList} onRemoveFoodOrder={removeOrderHandler}/>
