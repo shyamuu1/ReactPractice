@@ -5,6 +5,7 @@ import { mealReducer, orderReducer } from '../../reducers/mealReducer';
 import {sendGetRequest} from "../../util/http-service";
 import Loader from '../../lib/Loader/Loader';
 import Modal from "../../lib/Modal/Modal";
+import BackDrop from "../../lib/BackDrop/Backdrop";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
 import "./Burger.css";
 
@@ -99,7 +100,7 @@ const Burger:React.FC = () => {
     let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
     return(
             <div className="Burger">
-                {/* <Backdrop isVisible={purchasing} clicked={purchaseCancelHandler}/> */}
+                <BackDrop isVisible={purchasing} clicked={purchaseCancelHandler}/>
                 <Modal show={purchasing}>
                 {orderSummary}
                 </Modal>

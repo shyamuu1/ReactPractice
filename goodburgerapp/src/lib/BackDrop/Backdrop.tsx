@@ -6,10 +6,10 @@ interface Props{
     clicked:() => void;
 }
 
-const Backdrop:React.FC<Props> = ({isVisible, clicked}:Props) => {
+const BackDrop:React.FC<Props> = ({isVisible, clicked}:Props) => {
     return (
         (isVisible)?<div className="backdrop" onClick={clicked}></div>:null
     );
 }
 
-export default Backdrop;
+export default BackDrop;
