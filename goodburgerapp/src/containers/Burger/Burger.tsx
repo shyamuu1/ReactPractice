@@ -99,6 +99,7 @@ const Burger:React.FC = () => {
     let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
     return(
             <div className="Burger">
+                {/* <Backdrop isVisible={purchasing} clicked={purchaseCancelHandler}/> */}
                 <Modal show={purchasing}>
                 {orderSummary}
                 </Modal>
