@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.goodburger.demo.models.Food;
 import com.goodburger.demo.models.Order;
 import com.goodburger.demo.repositories.OrderRepository;
@@ -20,12 +19,12 @@ import com.goodburger.demo.repositories.OrderRepository;
 public class OrderService {
 	
 	private OrderRepository orderRepo;
-	private MongoTemplate mongoTemplate;
+	
 	
 	@Autowired
-	public OrderService(OrderRepository orderRepo, MongoTemplate mongoTemplate) {
+	public OrderService(OrderRepository orderRepo) {
 		this.orderRepo = orderRepo;
-		this.mongoTemplate = mongoTemplate;
+
 	}
 	
 	public List<Order> getAllOrders(){
@@ -48,18 +47,14 @@ public class OrderService {
 		this.orderRepo.save(currentOrder);
 		return currentOrder;
 	}
-	public Order createDefaultOrderById(ObjectId id) {
-		Order o = new Order();
-		o.setId(id);
-		o.setOrders(new ArrayList<Food>());
-		o.setTotalPrice("0.00");
-		return o;
+	public Order createDefaultOrder() {
+		return new Order();
 	}
 	
 	public void addFoodToOrder(Food f, ObjectId id) {
 		Order currentOrder = this.orderRepo.findBy_id(id);
 		if(currentOrder == null) {
-			currentOrder = createDefaultOrderById(id);
+			currentOrder = createDefaultOrder();
 		}
 		List<Food> currentOrders = currentOrder.getOrders();
 		currentOrders.add(f);
@@ -85,7 +80,6 @@ public class OrderService {
 	
 	//helper method to get totalPrice of the food items
 	private static String updateTotal(List<Food> orders, Order o) {
-		ArrayList<BigDecimal> prices = new ArrayList<>();
 		BigDecimal sum = new BigDecimal(0);
 		for(Food f: orders) {
 			String currentPrice = f.getPrice();

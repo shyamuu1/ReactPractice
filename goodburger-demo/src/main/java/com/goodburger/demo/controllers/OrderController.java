@@ -43,7 +43,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/addFood/{orderId}", method=RequestMethod.POST)
-	public ResponseEntity<String> addFoodtoOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
+	public ResponseEntity<String> updateOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
 		ResponseEntity<String> resp = null;
 		try {
 			this.os.addFoodToOrder(food, orderId);

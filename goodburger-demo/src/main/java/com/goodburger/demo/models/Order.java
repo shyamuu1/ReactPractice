@@ -2,6 +2,7 @@ package com.goodburger.demo.models;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -15,7 +16,11 @@ public class Order {
 	private List<Food> allOrders;
 	private String totalPrice;
 	
-	public Order() {}
+	public Order() {
+		this._id = ObjectId.get();
+		this.allOrders = new ArrayList<Food>();
+		this.totalPrice = "0.00";
+	}
 	
 	public Order(ObjectId _id, List<Food> allOrders, String totalPrice) {
 		this._id =_id;
