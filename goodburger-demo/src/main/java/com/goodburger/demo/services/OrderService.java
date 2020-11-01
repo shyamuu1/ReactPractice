@@ -48,7 +48,9 @@ public class OrderService {
 		return currentOrder;
 	}
 	public Order createDefaultOrder() {
-		return new Order();
+		Order o = new Order();
+		this.orderRepo.save(o);
+		return o;
 	}
 	
 	public void addFoodToOrder(Food f, ObjectId id) {
