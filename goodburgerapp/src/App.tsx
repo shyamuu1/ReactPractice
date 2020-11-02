@@ -11,7 +11,6 @@ function App() {
     <Switch>
       <Route path="/" component={Menu} exact={true}/>
       <Route path="/checkout" component={OrderPage} />
-      <Route path="/order" component={OrderTable} />
   </Switch>
   );
   return (
