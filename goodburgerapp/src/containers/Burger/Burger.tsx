@@ -1,4 +1,5 @@
 import React, {useState, useReducer, useEffect, useMemo, useCallback} from 'react';
+import {useLocation} from 'react-router-dom';
 import {Food, Order} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
@@ -17,6 +18,7 @@ const DEFUALT_ORDER:Order = {
 const Burger:React.FC = () => {
     // const [error, setError] = useState(null);
     const initalState:Food[]=[];
+    const location = useLocation<Order>();
     const [isMounted, setMounted] = useState<Boolean>(true);
     const [isLoading, setLoading] = useState<Boolean>(false)
     const [purchasing, setPurchasing] = useState(false);
@@ -29,6 +31,7 @@ const Burger:React.FC = () => {
             if (isMounted){
                 getAllMenuItems();
                 getOrder();
+                
             }
             return () => {setMounted(false)};
         }catch(err){
@@ -44,6 +47,18 @@ const Burger:React.FC = () => {
                 dispatch({type:"SET", meals:resData})
             }
             );
+    }
+    const getOrderById = (id:string) => {
+        if(location.state.id !== null){
+        setLoading(true);
+        sendGetRequest(`http://localhost:8080/orders/${id}`)
+        .then(resData => {
+            setLoading(false);
+            setCurrentOrder({type:"SET", id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
+        });
+    }else{
+        getOrder();
+    }
     }
 
     const getOrder = () => {

@@ -47,6 +47,25 @@ const Orders:React.FC = () => {
     
     let total = foodList.map(e => parseFloat(e.price)).reduce((p,c) => p+c, 0);
 
+    const submit = () => {
+        try{
+            setLoading(true);
+            sendPostRequest('http://localhost:8080/orders/submit', currentOrder)
+            .then(resData => {
+                setLoading(false);
+                dispatch({type:"SET", meals:resData.orders});
+                orderDispatch({type:"SET", id:resData.id, orders:resData.orders, totalPrice:resData.totalPrice});
+            })
+        }catch(err){
+            console.log(err.message);
+        }
+        finally{
+            if(!isLoading){
+                router.push("/", currentOrder);
+            }
+        }
+    }
+
     //Submit Order
     const submitOrdersHandler = useCallback(() => {
         try{
@@ -61,12 +80,16 @@ const Orders:React.FC = () => {
         }
         finally{
             if(!isLoading){
-                router.push("/");
+                router.push("/", {id: currentOrder.id});
             }
         }
     }, [foodList, isLoading, router]);
 
-    
+    const cancelBtnHandler =() => {
+        if(!isLoading){
+            router.push("/", currentOrder.id);
+        }
+    }
 
     //Removes Orders
     const removeOrderHandler = useCallback((FoodId:string)=> {
@@ -85,13 +108,12 @@ const Orders:React.FC = () => {
 
     //rerenders the component when currentOrders change or an order has been removed
     const orderList = useMemo(() => {
-            console.log(foodList, currentOrder)
             if(foodList.length){
             return (
                 <OrderTable allOrders={foodList} onRemoveFoodOrder={removeOrderHandler}/>
             );
                 }   
-    }, [foodList, currentOrder, removeOrderHandler]);
+    }, [foodList, removeOrderHandler]);
 
     return(
         <div>
@@ -101,8 +123,8 @@ const Orders:React.FC = () => {
             <p>Total Price: ${total.toFixed(2)} </p>
             </div>       
                 <div className="order-btns">
-                <button type="submit" onClick={submitOrdersHandler}>Complete Order</button>
-                <button>Cancel Order</button>
+                <button type="submit" onClick={submit}>Complete Order</button>
+                <button onClick={cancelBtnHandler}>Cancel Order</button>
                 </div>
         </div>
     );

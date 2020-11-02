@@ -37,6 +37,10 @@ public class OrderService {
 		return o.getOrders();
 	}
 	
+	public void submitOrder(Order o) {
+		this.orderRepo.save(o);
+	}
+	
 	public Order createOrder(Food[] allOrders) {
 		Order currentOrder = new Order();
 		List<Food> currentOrders = Arrays.asList(allOrders);

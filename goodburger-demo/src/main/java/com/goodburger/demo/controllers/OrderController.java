@@ -42,6 +42,12 @@ public class OrderController {
 		return this.os.createOrder(orders);
 	}
 	
+	@PostMapping("/submit")
+	public Order submitOrder(@RequestBody Order currentOrder) {
+		this.os.submitOrder(currentOrder);
+		return this.os.createDefaultOrder();
+	}
+	
 	@RequestMapping(value="/addFood/{orderId}", method=RequestMethod.POST)
 	public ResponseEntity<String> updateOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
 		ResponseEntity<String> resp = null;
