@@ -1,7 +1,6 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom";
 import Layout from "./containers/Layout/Layout";
-import OrderTable from './containers/Orders/OrderTable/OrderTable';
 import Menu from "./containers/Pages/MenuPage/Menu";
 import OrderPage from "./containers/Pages/OrderPage/OrderPage";
 
