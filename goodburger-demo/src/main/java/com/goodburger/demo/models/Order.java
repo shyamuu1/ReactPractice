@@ -16,6 +16,7 @@ public class Order {
 	private List<Food> allOrders;
 	private String totalPrice;
 	
+	//Default Order
 	public Order() {
 		this._id = ObjectId.get();
 		this.allOrders = new ArrayList<Food>();

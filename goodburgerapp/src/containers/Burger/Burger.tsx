@@ -18,7 +18,8 @@ const DEFUALT_ORDER:Order = {
 const Burger:React.FC = () => {
     // const [error, setError] = useState(null);
     const initalState:Food[]=[];
-    const location = useLocation<Order>();
+    const [guestId, setGuestId]= useState("");
+    const [checkoutItems, setCheckoutItems] = useState(initalState);
     const [isMounted, setMounted] = useState<Boolean>(true);
     const [isLoading, setLoading] = useState<Boolean>(false)
     const [purchasing, setPurchasing] = useState(false);
@@ -29,8 +30,9 @@ const Burger:React.FC = () => {
     useEffect(() => {
         try{
             if (isMounted){
-                getAllMenuItems();
-                getOrder();
+                getMenu();
+                // getOrder();
+                getGuestOrder();
                 
             }
             return () => {setMounted(false)};
@@ -39,7 +41,9 @@ const Burger:React.FC = () => {
         }
     }, [isMounted]);
 
-    const getAllMenuItems = () => {
+    console.log(guestId, checkoutItems, currentOrder);
+
+    const getMenu = () => {
         setLoading(true)
         sendGetRequest('http://localhost:8080/food/')
             .then(resData =>{
@@ -48,17 +52,16 @@ const Burger:React.FC = () => {
             }
             );
     }
-    const getOrderById = (id:string) => {
-        if(location.state.id !== null){
+
+    const getGuestOrder = () => {
         setLoading(true);
-        sendGetRequest(`http://localhost:8080/orders/${id}`)
-        .then(resData => {
+        sendGetRequest('http://localhost:8080/customers/')
+        .then(response => {
             setLoading(false);
-            setCurrentOrder({type:"SET", id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
-        });
-    }else{
-        getOrder();
-    }
+            setGuestId(response.customerId);
+            setCheckoutItems(response.myOrder.orders);
+            setCurrentOrder({type:"SET", id:response.myOrder.id, orders:response.myOrder.orders, totalPrice:response.myOrder.totalPrice})
+        })
     }
 
     const getOrder = () => {

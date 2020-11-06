@@ -9,11 +9,11 @@ public class CardPayment {
 	private String paymentType;
 	
 	public CardPayment() {
-		this.creditCardNumber = "";
-		this.billingAddress = new Address();
-		this.shippingAddress = new Address();
-		this.cvcNumber = "";
-		this.paymentType = "Card";
+		setCreditCardNumber("");
+		setBillingAddress(new Address());
+		setShippingAddress(new Address());
+		setCvcNumber("");
+		setPaymentType("Card");
 	}
 
 	public CardPayment(String creditCardNumber, Address billingAddress, Address shippingAddress, String cvcNumber, String paymentType) {

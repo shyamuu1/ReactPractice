@@ -1,30 +1,48 @@
 package com.goodburger.demo.models;
 
-import java.util.List;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Customers")
 public class Customer {
 	@Id
+	private ObjectId customerId;
 	private String email;
 	private String password;
-	private List<Order> myOrders;
+	private Order myOrder;
 	private CardPayment ccInfo;
 	private Boolean isValid;
 	
-	public Customer() {}
+	
+	public Customer() {
+		setId(ObjectId.get());
+		setEmail("");
+		setPassword("");
+		setMyOrder(new Order());
+		setCcInfo(new CardPayment());
+		setIsValid(true);
+	}
 
-	public Customer(String email, String password, List<Order> myOrders, CardPayment ccInfo, Boolean isValid) {
+	public Customer(ObjectId customerId, String email, String password, Order myOrders, CardPayment ccInfo, Boolean isValid) {
+		this.customerId = customerId;
 		this.email = email;
 		this.password = password;
-		this.myOrders = myOrders;
+		this.myOrder = myOrders;
 		this.ccInfo = ccInfo;
 		this.isValid = isValid;
 	}
 	
 	// Getters and Setters
+	
+	public String getId() {
+		return this.customerId.toHexString();
+	}
+	
+	public void setId(ObjectId id) {
+		this.customerId = id;
+	}
+	
 	public Boolean getIsValid() {
 		return this.isValid;
 	}
@@ -49,12 +67,12 @@ public class Customer {
 		this.password = password;
 	}
 
-	public List<Order> getMyOrders() {
-		return myOrders;
+	public Order getMyOrder() {
+		return this.myOrder;
 	}
 
-	public void setMyOrders(List<Order> myOrders) {
-		this.myOrders = myOrders;
+	public void setMyOrder(Order myOrders) {
+		this.myOrder = myOrders;
 	}
 
 	public CardPayment getCcInfo() {
@@ -67,9 +85,12 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [email=" + email + ", password=" + password + ", myOrders=" + myOrders + ", ccInfo=" + ccInfo
-				+ "]";
+		return "Customer [customerId=" + customerId + ", email=" + email + ", password=" + password + ", myOrder="
+				+ myOrder + ", ccInfo=" + ccInfo + ", isValid=" + isValid + "]";
 	}
+
+	
+	
 	
 	
 	

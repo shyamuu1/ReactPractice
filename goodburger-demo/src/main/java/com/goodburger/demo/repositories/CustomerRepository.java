@@ -7,6 +7,6 @@ import com.goodburger.demo.models.Customer;
 
 @Repository
 public interface CustomerRepository extends MongoRepository<Customer, String> {
-	Customer findBy_email(String email);
+	Customer findByemail(String email);
 
 }

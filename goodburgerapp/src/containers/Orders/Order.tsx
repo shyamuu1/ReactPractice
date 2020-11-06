@@ -67,23 +67,23 @@ const Orders:React.FC = () => {
     }
 
     //Submit Order
-    const submitOrdersHandler = useCallback(() => {
-        try{
-            setLoading(true);
-            sendPostRequest('http://localhost:8080/orders/', foodList)
-            .then(resData => {
-                setLoading(false);
-                dispatch({type:"SET", meals:resData.orders});
-            });
-        }catch(error){
-            console.log(error.message);
-        }
-        finally{
-            if(!isLoading){
-                router.push("/", {id: currentOrder.id});
-            }
-        }
-    }, [foodList, isLoading, router]);
+    // const submitOrdersHandler = useCallback(() => {
+    //     try{
+    //         setLoading(true);
+    //         sendPostRequest('http://localhost:8080/orders/', foodList)
+    //         .then(resData => {
+    //             setLoading(false);
+    //             dispatch({type:"SET", meals:resData.orders});
+    //         });
+    //     }catch(error){
+    //         console.log(error.message);
+    //     }
+    //     finally{
+    //         if(!isLoading){
+    //             router.push("/", {id: currentOrder.id});
+    //         }
+    //     }
+    // }, [foodList, isLoading, router]);
 
     const cancelBtnHandler =() => {
         if(!isLoading){

@@ -1,10 +1,13 @@
 package com.goodburger.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Address {
 	
 	private String fullname;
-	private String streetname;
-	private String buildingname;
+	private String streetline1;
 	private String city;
 	private String state;
 	private String zipcode;
@@ -12,29 +15,27 @@ public class Address {
 	
 	public Address() {
 		this.fullname = "";
-		this.streetname = "";
-		this.buildingname = "";
+		this.streetline1 = "";
 		this.city = "";
 		this.state = "";
 		this.zipcode = "";
 		this.country = "";
 	}
 
-	public Address(String fullname, String streetname, String buildingname, String city, String state, String zipcode,
-			String country) {
+	public Address(String fullname, String streetname,String city, String state, String zipcode, String country) {
 		this.fullname = fullname;
-		this.streetname = streetname;
-		this.buildingname = buildingname;
+		this.streetline1 = streetname;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
 		this.country = country;
 	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "Address [fullname=" + fullname + ", streetname=" + streetname + ", buildingname=" + buildingname
-				+ ", city=" + city + ", state=" + state + ", zipcode=" + zipcode + ", country=" + country + "]";
+		return "Address [fullname=" + fullname + ", streetname=" + streetline1 + ", city=" + city + ", state=" + state + ", zipcode=" + zipcode + ", country=" + country + "]";
 	}
 	
 	
