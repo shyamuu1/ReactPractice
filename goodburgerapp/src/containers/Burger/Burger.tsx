@@ -112,7 +112,7 @@ const Burger:React.FC = () => {
                 <Modal show={purchasing}>
                 {orderSummary}
                 </Modal>
-            {foods}
+            {(!isLoading)?foods:<Loader/>}
             </div>
     );
 }

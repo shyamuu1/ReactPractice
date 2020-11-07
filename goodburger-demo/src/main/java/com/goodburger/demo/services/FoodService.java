@@ -19,27 +19,9 @@ public class FoodService {
 		this.fr = fr;
 	}
 	
-//	public List<Food> getFoodByType(String foodType){
-//		return this.fr.findByfoodType(foodType);
-//	}
-	
 	public List<Food> getFoodz(){
 		return this.fr.findAll();
 	}
 	
-	public Food createFood(Food f) {
-		f.setId(ObjectId.get());
-		this.fr.save(f);
-		return f;
-	}
-	
-	public Food getFoodById(ObjectId id) {
-		return this.fr.findBy_id(id);
-	}
-	
-	public void removeFood(ObjectId id) {
-		Food burger = getFoodById(id);
-		this.fr.delete(burger);
-	}
 
 }

@@ -30,17 +30,12 @@ public class CustomerController {
 	public CustomerController(CustomerService cs) {
 		this.cs =  cs;
 	}
-	
+	//returns default CustomerResponse or the first one inside the table
 	@GetMapping("/")
 	public CustomerResponse getCustomer() {
 		return this.cs.getGuest();
 	}
-	
-	@RequestMapping(value="/{email}", method=RequestMethod.GET)
-	public Customer getCustomerByEmail(@PathVariable String email) {
-		return this.cs.getCustomerByEmail(email);
-	}
-	
+	//need to edit
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public Customer registerCustomer(@RequestBody Customer newUser) {
 		String email = newUser.getEmail();
@@ -48,7 +43,7 @@ public class CustomerController {
 		return this.cs.register(email, password);
 	}
 	
-	//update Order for Customer
+	//update Order for Customer by adding a new menu Item
 	@RequestMapping(value="/addFood/{customerId}", method=RequestMethod.POST)
 	public ResponseEntity<String> addMenuItemUpdate(@RequestBody Food f, @PathVariable ObjectId customerId){
 		ResponseEntity<String> resp = null;

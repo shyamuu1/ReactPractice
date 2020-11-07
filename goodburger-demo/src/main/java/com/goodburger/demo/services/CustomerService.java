@@ -28,6 +28,7 @@ public class CustomerService {
 		this.customerRepo = customerRepo;
 		this.os = os;
 	}
+	
 	// returns default state for customer response
 	public CustomerResponse getGuest() {
 		response = new CustomerResponse();
@@ -37,21 +38,19 @@ public class CustomerService {
 		response.setMyOrder(c.getMyOrder());
 		return response;	
 	}
-	
+	//stops duplication of customers when method is called
 	public Customer getDefaultCustomer() {
 		List<Customer> allCustomers = this.customerRepo.findAll();
-		if(allCustomers.isEmpty()) {
-			c= new Customer();
-		}else {
-			c = allCustomers.get(0);
-		}
+		c = (allCustomers.isEmpty())?new Customer():allCustomers.get(0);
 		return c;
 	}
 	
+	//retrieve customer by email
 	public Customer getCustomerByEmail(String email) {
 		return this.customerRepo.findByemail(email);
 	}
 	
+	//creates a new Customer
 	public Customer register(String email, String password) {
 		Boolean validUser = this.validateUserIsUnique(email);
 		c = new Customer();
@@ -69,6 +68,7 @@ public class CustomerService {
 		
 	}
 	
+	//updates array of MenuItems by adding a new MenuItem
 	public void addMenutItemToOrder(Food selectedMenuItem, ObjectId customerId) {
 		c = this.customerRepo.findBycustomerId(customerId);
 		if(c == null) {
@@ -80,6 +80,7 @@ public class CustomerService {
 		this.customerRepo.save(c);
 	}
 	
+	//updates array of menuItems by removing a menuItem
 	public List<Food> deleteMenuItemFromOrder(ObjectId customerId, ObjectId menuItemId ){
 		c = this.customerRepo.findBycustomerId(customerId);
 		Order o = c.getMyOrder();

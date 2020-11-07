@@ -32,25 +32,10 @@ public class OrderService {
 	}
 	
 	
-	public List<Food> getallOrdersById(ObjectId id){
-		Order o = this.orderRepo.findBy_id(id);
-		return o.getOrders();
-	}
-	
 	public void submitOrder(Order o) {
 		this.orderRepo.save(o);
 	}
-	
-	public Order createOrder(Food[] allOrders) {
-		Order currentOrder = new Order();
-		List<Food> currentOrders = Arrays.asList(allOrders);
-		String totalPrice = updateTotal(currentOrders, currentOrder);
-		currentOrder.setId(ObjectId.get());
-		updateOrder(currentOrder, currentOrders, totalPrice);
-		System.out.println(currentOrder.toString());
-		this.orderRepo.save(currentOrder);
-		return currentOrder;
-	}
+
 	public Order createDefaultOrder() {
 		Order o = new Order();
 		this.orderRepo.save(o);
@@ -68,7 +53,6 @@ public class OrderService {
 	
 	
 	public List<Food> deleteFoodInOrder(Order o, ObjectId foodId) {
-		System.out.println("IN ORDER SERVICE");
 		List<Food> currentorders = o.getOrders();
 		List<Food> filteredOrders = getFilteredOutput(currentorders, foodId);
 		String total = updateTotal(filteredOrders, o);
@@ -89,12 +73,12 @@ public class OrderService {
 		return sum.toString();
 	}
 	//helper method to delete an foodItem from an Order
-	public static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
+	private static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
 		return orders.stream().filter(order -> !order.getId().equals(foodId.toHexString())).collect(Collectors.toList());
 	}
 	
 	//updates the food list and total Price
-	public static void updateOrder(Order o, List<Food> myOrders, String totalPrice) {
+	private static void updateOrder(Order o, List<Food> myOrders, String totalPrice) {
 		o.setOrders(myOrders);
 		o.setTotalPrice(totalPrice);
 	}

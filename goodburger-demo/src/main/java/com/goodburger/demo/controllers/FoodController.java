@@ -28,28 +28,10 @@ public class FoodController {
 		this.fs = fs;
 	}
 	
+	//retrieves all menu Items
 	@GetMapping("/")
-	public List<Food> getAllFoods(){
+	public List<Food> getMenu(){
 		return this.fs.getFoodz();
-	}
-//	@GetMapping("/burgers")
-//	public List<Food> getBurgers(){
-//		return this.fs.getFoodByType("Burger");
-//	}
-//	
-//	@GetMapping("/beverages")
-//	public List<Food> getDrinks(){
-//		return this.fs.getFoodByType("Beverage");
-//	}
-	
-	@PostMapping("/")
-	public Food addFood(@RequestBody Food f) {
-		return this.fs.createFood(f);
-	}
-	
-	@RequestMapping(value="/{id}",  method=RequestMethod.DELETE)
-	public void deleteFood(@PathVariable ObjectId id) {
-		this.fs.removeFood(id);
 	}
 
 }
