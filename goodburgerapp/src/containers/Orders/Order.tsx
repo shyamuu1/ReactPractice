@@ -14,13 +14,12 @@ const initialState:Order = {
     totalPrice: ""
 };
 const Orders:React.FC = () => {
+    const [guestId, setGuestId] = useState("");
     const [foodList, dispatch] = useReducer(mealReducer, initialState.orders);
     const [currentOrder,orderDispatch] = useReducer(orderReducer, initialState);
     const [isLoading, setLoading] = useState<Boolean>(false);
     const router = useHistory();
-    // const [purchasing, setPurchasing] = useState(false);
-    // const [orderId, setOrderID] =  useState(initialState.id);
-    //const [totalPrice, setTotalPrice] = useState(0);
+
     //get current Order
     useEffect(() => {
         let isMounted = true;
@@ -34,13 +33,15 @@ const Orders:React.FC = () => {
         }
     },[])
 
+
     const refreshList = () => {
         setLoading(true);
-            sendGetRequest('http://localhost:8080/orders/')
+            sendGetRequest('http://localhost:8080/customers/')
             .then((resData) => {
                 setLoading(false);
-                dispatch({type:"SET", meals:resData[0].orders})
-                orderDispatch({type:"SET",  id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
+                setGuestId(resData.customerId);
+                dispatch({type:"SET", meals:resData.myOrder.orders})
+                orderDispatch({type:"SET",  id:resData.myOrder.id, orders:resData.myOrder.orders, totalPrice:resData.myOrder.totalPrice});
             });
     }
 
@@ -66,28 +67,10 @@ const Orders:React.FC = () => {
         }
     }
 
-    //Submit Order
-    // const submitOrdersHandler = useCallback(() => {
-    //     try{
-    //         setLoading(true);
-    //         sendPostRequest('http://localhost:8080/orders/', foodList)
-    //         .then(resData => {
-    //             setLoading(false);
-    //             dispatch({type:"SET", meals:resData.orders});
-    //         });
-    //     }catch(error){
-    //         console.log(error.message);
-    //     }
-    //     finally{
-    //         if(!isLoading){
-    //             router.push("/", {id: currentOrder.id});
-    //         }
-    //     }
-    // }, [foodList, isLoading, router]);
 
     const cancelBtnHandler =() => {
         if(!isLoading){
-            router.push("/", currentOrder.id);
+            router.push("/");
         }
     }
 
@@ -95,7 +78,7 @@ const Orders:React.FC = () => {
     const removeOrderHandler = useCallback((FoodId:string)=> {
         try{
             setLoading(true);
-            sendPostRequest(`http://localhost:8080/orders/${FoodId}`, currentOrder)
+            sendPostRequest(`http://localhost:8080/customers/${FoodId}`, guestId)
             .then((resData) => {
                 setLoading(false);
                 dispatch({type:"SET", meals:resData});
@@ -104,7 +87,7 @@ const Orders:React.FC = () => {
         }catch(err){
             console.log(err.message);
         }
-    },[currentOrder]);
+    },[guestId]);
 
     //rerenders the component when currentOrders change or an order has been removed
     const orderList = useMemo(() => {

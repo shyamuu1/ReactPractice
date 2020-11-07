@@ -31,7 +31,6 @@ const Burger:React.FC = () => {
         try{
             if (isMounted){
                 getMenu();
-                // getOrder();
                 getGuestOrder();
                 
             }
@@ -41,7 +40,7 @@ const Burger:React.FC = () => {
         }
     }, [isMounted]);
 
-    console.log(guestId, checkoutItems, currentOrder);
+    
 
     const getMenu = () => {
         setLoading(true)
@@ -59,24 +58,15 @@ const Burger:React.FC = () => {
         .then(response => {
             setLoading(false);
             setGuestId(response.customerId);
-            setCheckoutItems(response.myOrder.orders);
             setCurrentOrder({type:"SET", id:response.myOrder.id, orders:response.myOrder.orders, totalPrice:response.myOrder.totalPrice})
         })
     }
 
-    const getOrder = () => {
-        setLoading(true);
-        sendGetRequest('http://localhost:8080/orders/')
-            .then(resData => {
-                setLoading(false);
-                setCurrentOrder({type:"SET", id:resData[0].id, orders:resData[0].orders, totalPrice:resData[0].totalPrice});
-            });
-    }
     const onAddFoodHandler = useCallback((allOrders:Food) =>{
         try{
             setPurchasing(true);
             setLoading(true);
-            fetch(`http://localhost:8080/orders/addFood/${currentOrder.id}`, {
+            fetch(`http://localhost:8080/customers/addFood/${guestId}`, {
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body: JSON.stringify(allOrders)
@@ -90,7 +80,7 @@ const Burger:React.FC = () => {
             console.log(err.message);
         }
         
-    }, [currentOrder]);
+    }, [ guestId]);
 
     const addFoodToListHandler = useCallback((food:Food) => {
         setOrders([...orders,food]);

@@ -57,16 +57,11 @@ public class OrderService {
 		return o;
 	}
 	
-	public void addFoodToOrder(Food f, ObjectId id) {
-		Order currentOrder = this.orderRepo.findBy_id(id);
-		if(currentOrder == null) {
-			currentOrder = createDefaultOrder();
-		}
+	public void addFoodToOrder(Food f, Order currentOrder) {
 		List<Food> currentOrders = currentOrder.getOrders();
 		currentOrders.add(f);
 		String currentTotal = updateTotal(currentOrders, currentOrder);
 		updateOrder(currentOrder, currentOrders, currentTotal);
-		this.orderRepo.save(currentOrder);
 		
 	}
 	
@@ -78,7 +73,6 @@ public class OrderService {
 		List<Food> filteredOrders = getFilteredOutput(currentorders, foodId);
 		String total = updateTotal(filteredOrders, o);
 		updateOrder(o,filteredOrders, total);
-		this.orderRepo.save(o);
 		return o.getOrders();
 	}
 	
@@ -95,22 +89,15 @@ public class OrderService {
 		return sum.toString();
 	}
 	//helper method to delete an foodItem from an Order
-	private static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
+	public static List<Food> getFilteredOutput(List<Food> orders, ObjectId foodId){
 		return orders.stream().filter(order -> !order.getId().equals(foodId.toHexString())).collect(Collectors.toList());
 	}
 	
 	//updates the food list and total Price
-	private static void updateOrder(Order o, List<Food> myOrders, String totalPrice) {
+	public static void updateOrder(Order o, List<Food> myOrders, String totalPrice) {
 		o.setOrders(myOrders);
 		o.setTotalPrice(totalPrice);
 	}
 	
-//	private static void printList(List<Food> arr, ObjectId id) {
-//		int idx =0;
-//		for(Food f: arr) {
-//			idx++;
-//			System.out.println(idx+") "+f.toString());
-//		}
-//	}
 
 }

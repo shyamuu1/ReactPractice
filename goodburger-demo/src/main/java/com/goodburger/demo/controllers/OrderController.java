@@ -48,18 +48,18 @@ public class OrderController {
 		return this.os.createDefaultOrder();
 	}
 	
-	@RequestMapping(value="/addFood/{orderId}", method=RequestMethod.POST)
-	public ResponseEntity<String> updateOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
-		ResponseEntity<String> resp = null;
-		try {
-			this.os.addFoodToOrder(food, orderId);
-			resp = new ResponseEntity<String>("Sucessfully updated list of orders", HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return resp;
-	}
-	
+//	@RequestMapping(value="/addFood/{orderId}", method=RequestMethod.POST)
+//	public ResponseEntity<String> updateOrder(@RequestBody Food food, @PathVariable ObjectId orderId){
+//		ResponseEntity<String> resp = null;
+//		try {
+//			this.os.addFoodToOrder(food, orderId);
+//			resp = new ResponseEntity<String>("Sucessfully updated list of orders", HttpStatus.OK);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return resp;
+//	}
+//	
 	@RequestMapping(value="/{foodId}",  method=RequestMethod.POST)
 	public List<Food> deleteFood(@RequestBody Order order, @PathVariable ObjectId foodId) {
 		return this.os.deleteFoodInOrder(order, foodId);
