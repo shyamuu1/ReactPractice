@@ -1,5 +1,4 @@
 import React, {useState, useReducer, useEffect, useMemo, useCallback} from 'react';
-import {useLocation} from 'react-router-dom';
 import {Food, Order} from '../../util/types';
 import BurgerList from '../../components/BurgerList/BurgerList';
 import { mealReducer, orderReducer } from '../../reducers/mealReducer';
@@ -8,7 +7,7 @@ import Loader from '../../lib/Loader/Loader';
 import Modal from "../../lib/Modal/Modal";
 import BackDrop from "../../lib/BackDrop/Backdrop";
 import OrderModal from '../../containers/Orders/OrderModal/OrderModal';
-import "./Burger.css";
+
 
 const DEFUALT_ORDER:Order = {
     id: "",
