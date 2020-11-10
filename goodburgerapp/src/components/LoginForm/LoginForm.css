@@ -18,18 +18,19 @@
 .form-control label,
 .form-control input{
     display: block;
-    min-width: 65%;
     margin-left: 16px;
 }
 
 .form-control input {
     font: inherit;
-    font-size: large;
-    padding: 0.1rem 0.25rem;
+    min-width: 65%;
+    font-size: 24px;
+    padding: 2px;
     border: none;
     border-radius: 5px;
     border-bottom: 2px solid #ccc;
     margin-bottom: 1rem;
+    
   }
 
 .form-actions{

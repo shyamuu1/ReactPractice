@@ -80,6 +80,7 @@ const Orders:React.FC = () => {
 
     const LoginHandler = () => {
         setAuthenticating(true);
+        router.push("/contact-data");
     }
 
     const LoginCancelHandler = () => {
@@ -123,7 +124,7 @@ const Orders:React.FC = () => {
             <p>Total Price: ${total.toFixed(2)} </p>
             </div>       
                 <div className="order-btns">
-                <button type="submit" onClick={LoginHandler}>Complete Order</button>
+                <button type="submit" onClick={()=>{setAuthenticating(true)}}>Complete Order</button>
                 <button onClick={cancelBtnHandler}>Cancel Order</button>
                 </div>
         </div>
