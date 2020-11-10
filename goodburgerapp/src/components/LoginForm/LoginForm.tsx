@@ -25,6 +25,7 @@ const Login:React.FC<Props> = ({login, cancel}:Props) => {
                     <input placeholder="Enter Password"/>
                 </div>
                 <div className="form-actions">
+                     &nbsp;
                     <Btn clicked={login}>Login</Btn>
                     <Btn clicked={cancel}>SignUp</Btn>
                 </div>

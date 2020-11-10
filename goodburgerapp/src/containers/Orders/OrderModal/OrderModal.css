@@ -13,10 +13,15 @@ justify-content: space-evenly;
     background: #603813;
     color:whitesmoke;
 }
+.modal-header h2{
+    margin-left: 16px;
+}
 .quantity-input{
-    
     border-radius: 40px;
+}
 
+.modal-body{
+    margin-left: 16px;
 }
 
 .modal-actions{
