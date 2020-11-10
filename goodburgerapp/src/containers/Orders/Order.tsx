@@ -1,4 +1,7 @@
 import React, {useCallback, useState, useMemo, useEffect, useReducer} from 'react';
+import BackDrop from "../../lib/BackDrop/Backdrop";
+import Modal from "../../lib/Modal/Modal";
+import Login from "../../components/LoginForm/LoginForm";
 import {useHistory} from 'react-router-dom';
 import {Order} from '../../util/types';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
@@ -14,6 +17,7 @@ const initialState:Order = {
     totalPrice: ""
 };
 const Orders:React.FC = () => {
+    const [authenticating, setAuthenticating] = useState<Boolean>(false);
     const [guestId, setGuestId] = useState("");
     const [foodList, dispatch] = useReducer(mealReducer, initialState.orders);
     const [currentOrder,orderDispatch] = useReducer(orderReducer, initialState);
@@ -74,6 +78,14 @@ const Orders:React.FC = () => {
         }
     }
 
+    const LoginHandler = () => {
+        setAuthenticating(true);
+    }
+
+    const LoginCancelHandler = () => {
+        setAuthenticating(false);
+    }
+
     //Removes Orders
     const removeOrderHandler = useCallback((FoodId:string)=> {
         try{
@@ -98,15 +110,20 @@ const Orders:React.FC = () => {
                 }   
     }, [foodList, removeOrderHandler]);
 
+    const loginForm = <Modal show={authenticating}><Login login={LoginHandler} cancel={LoginCancelHandler}/></Modal>
+
+
     return(
         <div>
+            <BackDrop isVisible={authenticating} clicked={LoginCancelHandler}/>
+            {loginForm}
         <div className="Orders">
             <h2>GoodBurgers</h2>
             {(isLoading)?<Loader />:orderList}
             <p>Total Price: ${total.toFixed(2)} </p>
             </div>       
                 <div className="order-btns">
-                <button type="submit" onClick={submit}>Complete Order</button>
+                <button type="submit" onClick={LoginHandler}>Complete Order</button>
                 <button onClick={cancelBtnHandler}>Cancel Order</button>
                 </div>
         </div>

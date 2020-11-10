@@ -9,7 +9,7 @@ const header:FC = () => {
               
                 <ul className="header-container">
                     <Headerlink link="/" >Menu</Headerlink>
-                    <Headerlink link="/checkout">Checkout</Headerlink>
+                    <Headerlink link="/myorder">Checkout</Headerlink>
                 </ul>
                 
         </header>
