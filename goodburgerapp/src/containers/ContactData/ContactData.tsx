@@ -1,5 +1,6 @@
 import React from 'react';
 import CCForm from "../../components/CreditCardForm/creditcardform";
+import AddressForm from '../../components/DeliveryForm/ShippingAddressForm';
 
 const ContactData:React.FC = () => {
 
@@ -7,7 +8,10 @@ const ContactData:React.FC = () => {
         <div className="contact-data">
             
             <CCForm />
-            <h2>Delivery Address</h2>
+          
+            
+            <AddressForm />
+            
         </div>
     );
 }

@@ -1,8 +1,11 @@
-.ccform-container{
+.addressForm-container{
     display:flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    
+    
+}
+.addressFrom{
+    justify-content: flex-start;
 }
 .form-control label,
 .form-control input{
