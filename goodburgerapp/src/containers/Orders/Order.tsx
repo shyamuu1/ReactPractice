@@ -1,4 +1,5 @@
 import React, {useCallback, useState, useMemo, useEffect, useReducer} from 'react';
+import Btn from "../../lib/Button/Button";
 import BackDrop from "../../lib/BackDrop/Backdrop";
 import Modal from "../../lib/Modal/Modal";
 import Login from "../../components/LoginForm/LoginForm";
@@ -124,8 +125,8 @@ const Orders:React.FC = () => {
             <p>Total Price: ${total.toFixed(2)} </p>
             </div>       
                 <div className="order-btns">
-                <button type="submit" onClick={()=>{setAuthenticating(true)}}>Complete Order</button>
-                <button onClick={cancelBtnHandler}>Cancel Order</button>
+                <Btn clicked={()=>{setAuthenticating(true)}}>Complete Order</Btn>
+                <Btn clicked={cancelBtnHandler}>Cancel Order</Btn>
                 </div>
         </div>
     );
