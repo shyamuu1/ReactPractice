@@ -23,7 +23,7 @@
 
 .form-control input {
     font: inherit;
-    min-width: 65%;
+    max-width: 65%;
     font-size: 24px;
     padding: 2px;
     border: none;
