@@ -1,0 +1,36 @@
+.register-header{
+    display:flex;
+    flex-direction: row-reverse;
+    background: #603813;
+    margin-bottom: 1rem;
+}
+
+.register-header button{
+    background-color: transparent;
+    color: whitesmoke;
+    outline: whitesmoke 4px solid;
+    border:none;
+    font-size: inherit;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 10px;
+}
+
+.register-body{
+    display:flex;
+}
+.registerform-group label,
+.registerform-group input{
+    display: block;
+    margin-left: 16px;
+}
+
+.registerform-group label{
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.register-actions{
+    display:flex;
+    justify-content: center;
+}

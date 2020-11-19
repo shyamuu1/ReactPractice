@@ -3,6 +3,7 @@ import Btn from "../../lib/Button/Button";
 import BackDrop from "../../lib/BackDrop/Backdrop";
 import Modal from "../../lib/Modal/Modal";
 import Login from "../../components/LoginForm/LoginForm";
+import Register from "../../components/RegisterForm/register";
 import {useHistory} from 'react-router-dom';
 import {Order} from '../../util/types';
 import {sendPostRequest, sendGetRequest} from "../../util/http-service";
@@ -18,6 +19,7 @@ const initialState:Order = {
     totalPrice: ""
 };
 const Orders:React.FC = () => {
+    const [registering, setRegistering] = useState<Boolean>(false);
     const [authenticating, setAuthenticating] = useState<Boolean>(false);
     const [guestId, setGuestId] = useState("");
     const [foodList, dispatch] = useReducer(mealReducer, initialState.orders);
@@ -73,21 +75,6 @@ const Orders:React.FC = () => {
     }
 
 
-    const cancelBtnHandler =() => {
-        if(!isLoading){
-            router.push("/");
-        }
-    }
-
-    const LoginHandler = () => {
-        setAuthenticating(true);
-        router.push("/contact-data");
-    }
-
-    const LoginCancelHandler = () => {
-        setAuthenticating(false);
-    }
-
     //Removes Orders
     const removeOrderHandler = useCallback((FoodId:string)=> {
         try{
@@ -112,13 +99,38 @@ const Orders:React.FC = () => {
                 }   
     }, [foodList, removeOrderHandler]);
 
-    const loginForm = <Modal show={authenticating}><Login login={LoginHandler} cancel={LoginCancelHandler}/></Modal>
+    const cancelBtnHandler =() => {
+        if(!isLoading){
+            router.push("/");
+        }
+    }
 
+    const LoginHandler = () => {
+        setAuthenticating(true);
+        router.push("/contact-data");
+    }
+
+    const LoginCancelHandler = () => {
+        setAuthenticating(false);
+    }
+
+    const SignUpHandler = () => {
+        setAuthenticating(false);
+        setRegistering(true);
+    }
+    const SignUpCancelHandler = () => {
+        setRegistering(false);
+    }
+
+    const loginForm = <Modal show={authenticating}><Login login={LoginHandler} cancel={LoginCancelHandler} signUp={SignUpHandler}/></Modal>
+    const RegisterForm = <Modal show={registering}><Register closeModal={SignUpCancelHandler}/></Modal>
+
+    let customerForm = (registering)?RegisterForm:(authenticating)?loginForm:null;
 
     return(
         <div>
-            <BackDrop isVisible={authenticating} clicked={LoginCancelHandler}/>
-            {loginForm}
+            <BackDrop isVisible={authenticating || registering} clicked={LoginCancelHandler}/>
+            {customerForm}
         <div className="Orders">
             <h2>GoodBurgers</h2>
             {(isLoading)?<Loader />:orderList}

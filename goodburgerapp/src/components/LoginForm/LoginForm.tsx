@@ -5,10 +5,11 @@ import Btn from "../../lib/Button/Button";
 
 interface Props{
     login:() => void;
+    signUp:() => void;
     cancel:() => void;
 }
 
-const Login:React.FC<Props> = ({login, cancel}:Props) => {
+const Login:React.FC<Props> = ({login, signUp, cancel}:Props) => {
     return (
         <div className="login-container">
             <div className="login-header">
@@ -26,7 +27,7 @@ const Login:React.FC<Props> = ({login, cancel}:Props) => {
                 </div>
                 <div className="form-actions">
                     <Btn clicked={login}>Login</Btn>
-                    <Btn clicked={cancel}>SignUp</Btn>
+                    <Btn clicked={signUp}>SignUp</Btn>
                 </div>
             </form>
             </div>
