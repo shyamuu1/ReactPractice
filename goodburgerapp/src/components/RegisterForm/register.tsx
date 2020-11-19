@@ -5,6 +5,7 @@ const Register:React.FC =() => {
     return (
         <div className="register-container">
             <div className="register-header">
+                <a type="button">&#10005;</a>
             </div>
             <div className="register-body">
                 <form className="register-form">
