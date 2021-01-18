@@ -33,7 +33,6 @@ const Burger:React.FC = () => {
     const [currentOrder, setCurrentOrder] = useReducer(orderReducer, DEFUALT_ORDER);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initalState);
 
-    console.log(menuItem.name);
 
     useEffect(() => {
         try{
@@ -90,7 +89,7 @@ const Burger:React.FC = () => {
         
     }, [ guestId]);
 
-    const addFoodToListHandler = useCallback((food:Food) => {
+    const selectMenuItemHandler = useCallback((food:Food) => {
         setMenutItem(food);
         //setOrders([...orders,food]);
         setPurchasing(true)
@@ -108,11 +107,11 @@ const Burger:React.FC = () => {
             const burgers = currentBurgers.filter(f => f.foodType === "Burger");
             return (
                 <div>
-                <BurgerList allFood={burgers} drinks={drinks} getFood={addFoodToListHandler}/>
+                <BurgerList allFood={burgers} drinks={drinks} getFood={selectMenuItemHandler}/>
                 </div>
             );
         }
-    }, [currentBurgers, addFoodToListHandler]);
+    }, [currentBurgers, selectMenuItemHandler]);
 
     // let orderSummary = (orders.length)?<OrderModal order={menuItem} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
 
