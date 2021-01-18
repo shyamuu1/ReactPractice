@@ -14,17 +14,26 @@ const DEFUALT_ORDER:Order = {
     orders: [],
     totalPrice: ""
 };
+const DEFAULT_MENUITEM:Food = {
+        id:  "",
+        name: "",
+        foodType:"",
+        decription:"",
+        price:"",
+}
 const Burger:React.FC = () => {
     // const [error, setError] = useState(null);
     const initalState:Food[]=[];
     const [guestId, setGuestId]= useState("");
-    const [checkoutItems, setCheckoutItems] = useState(initalState);
     const [isMounted, setMounted] = useState<Boolean>(true);
     const [isLoading, setLoading] = useState<Boolean>(false)
     const [purchasing, setPurchasing] = useState(false);
+    const [menuItem, setMenutItem] = useState<Food>(DEFAULT_MENUITEM);
     const [orders, setOrders] = useState<Food[]>(DEFUALT_ORDER.orders);
     const [currentOrder, setCurrentOrder] = useReducer(orderReducer, DEFUALT_ORDER);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initalState);
+
+    console.log(menuItem.name);
 
     useEffect(() => {
         try{
@@ -82,9 +91,10 @@ const Burger:React.FC = () => {
     }, [ guestId]);
 
     const addFoodToListHandler = useCallback((food:Food) => {
-        setOrders([...orders,food]);
+        setMenutItem(food);
+        //setOrders([...orders,food]);
         setPurchasing(true)
-    },[orders]);
+    },[]);
 
 
     const purchaseCancelHandler = () => {
@@ -104,12 +114,13 @@ const Burger:React.FC = () => {
         }
     }, [currentBurgers, addFoodToListHandler]);
 
-    let orderSummary = (orders.length)?<OrderModal order={orders[0]} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
+    // let orderSummary = (orders.length)?<OrderModal order={menuItem} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
+
     return(
             <div className="Burger">
                 <BackDrop isVisible={purchasing} clicked={purchaseCancelHandler}/>
                 <Modal show={purchasing}>
-                {orderSummary}
+                <OrderModal order={menuItem} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler}/>
                 </Modal>
             {(!isLoading)?foods:<Loader/>}
             </div>
