@@ -29,7 +29,6 @@ const Burger:React.FC = () => {
     const [isLoading, setLoading] = useState<Boolean>(false)
     const [purchasing, setPurchasing] = useState(false);
     const [menuItem, setMenutItem] = useState<Food>(DEFAULT_MENUITEM);
-    const [orders, setOrders] = useState<Food[]>(DEFUALT_ORDER.orders);
     const [currentOrder, setCurrentOrder] = useReducer(orderReducer, DEFUALT_ORDER);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initalState);
 
