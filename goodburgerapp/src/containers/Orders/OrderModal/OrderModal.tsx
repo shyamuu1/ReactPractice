@@ -32,7 +32,6 @@ const OrderModal:React.FC<Props> = ({order, addOrder, CloseModal}:Props) => {
                 </div>
                 <div className="modal-actions">
                     <Btn clicked={checkoutClickHandler}>Add to Checkout</Btn>
-                    {/* <button type="submit" onClick={checkoutClickHandler}>Add to Checkout</button> */}
                 </div>
         </div>
         
