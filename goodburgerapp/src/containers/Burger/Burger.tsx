@@ -33,7 +33,8 @@ const Burger:React.FC = () => {
     const [currentOrder, setCurrentOrder] = useReducer(orderReducer, DEFUALT_ORDER);
     const [currentBurgers, dispatch] = useReducer(mealReducer, initalState);
 
-
+//Retrieves Customer order details and restaurant's menu items
+//Unmounts component when not in use to reduce any data leakage
     useEffect(() => {
         try{
             if (isMounted){
@@ -48,7 +49,7 @@ const Burger:React.FC = () => {
     }, [isMounted]);
 
     
-
+//Gets all MenuItems
     const getMenu = () => {
         setLoading(true)
         sendGetRequest('http://localhost:8080/food/')
@@ -59,6 +60,7 @@ const Burger:React.FC = () => {
             );
     }
 
+//gets default or current Current Customer's order
     const getGuestOrder = () => {
         setLoading(true);
         sendGetRequest('http://localhost:8080/customers/')
@@ -69,6 +71,7 @@ const Burger:React.FC = () => {
         })
     }
 
+//Adds MenuITem to customer's order
     const onAddFoodHandler = useCallback((allOrders:Food) =>{
         try{
             setPurchasing(true);
@@ -89,9 +92,9 @@ const Burger:React.FC = () => {
         
     }, [ guestId]);
 
+//Selects menu item to display on Order Modal
     const selectMenuItemHandler = useCallback((food:Food) => {
         setMenutItem(food);
-        //setOrders([...orders,food]);
         setPurchasing(true)
     },[]);
 
@@ -100,7 +103,7 @@ const Burger:React.FC = () => {
         setPurchasing(false);
     }
     
-
+//Creates a list of MenuItems and Drinks
     const foods = useMemo(() => {
         if(currentBurgers.length){
             const drinks = currentBurgers.filter(f => f.foodType === "Beverage");
@@ -113,7 +116,6 @@ const Burger:React.FC = () => {
         }
     }, [currentBurgers, selectMenuItemHandler]);
 
-    // let orderSummary = (orders.length)?<OrderModal order={menuItem} addOrder={onAddFoodHandler} CloseModal={purchaseCancelHandler} />:<Loader />;
 
     return(
             <div className="Burger">
