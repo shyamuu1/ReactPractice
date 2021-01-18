@@ -84,7 +84,7 @@ const Burger:React.FC = () => {
             .then(res => res)
             .then(resData => {
                 setLoading(false);
-                console.log(resData)
+                console.log(resData);
             });
         }catch(err){
             console.log(err.message);
@@ -98,7 +98,7 @@ const Burger:React.FC = () => {
         setPurchasing(true)
     },[]);
 
-
+//Closes Order modal
     const purchaseCancelHandler = () => {
         setPurchasing(false);
     }
