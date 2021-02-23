@@ -1,8 +1,5 @@
 import React from 'react';
-
-type GameContainerProps = {
-    children:React.ReactNode;
-}
+import { GameContainerProps } from '../types/types';
 
 const Game:React.FC<GameContainerProps> = ({children}:GameContainerProps) => {
     return (
