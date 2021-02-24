@@ -1,11 +1,15 @@
 import React from 'react';
 import { TurnlistProps } from '../../types/types';
 
-const Turnlist:React.FC<TurnlistProps>= (props:TurnlistProps) => {
+const Turnlist:React.FC<TurnlistProps>= ({move, Jump}:TurnlistProps) => {
+
+    const description:string = move ?
+    "Go to move #" +move :
+    "Go to game start";
 
     return (
-        <li key={props.move}>
-            <button onClick={() => props.Jump}></button>
+        <li key={move}>
+            <button onClick={() => Jump(move)}>{description}</button>
         </li>
     );
 }

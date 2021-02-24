@@ -16,7 +16,7 @@ const App:React.FC = () => {
 
   let status = (winner)? "Winner: "+winner: "Next player "+(isXNext ? "X":"O");
 
-  const handleClick = (index:any) => {
+  const handleClick = (index:number) => {
     const current = history[history.length -1];
     const squares = current.squares.slice(0, turnNumber+1);
     if(calculateWinner(squares) || squares[index]){
@@ -45,7 +45,7 @@ const turnList = history.map((currentMove, idx)=> {
   return (
     <div className="App">
       <Game>
-        <Board squares={current.squares} clicked={()=>handleClick}/>
+        <Board squares={current.squares} clicked={(index:number)=>handleClick(index)}/>
       </Game>
       <div className="game-info">
           <div>{status}</div>
