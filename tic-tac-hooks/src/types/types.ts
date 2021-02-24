@@ -12,3 +12,8 @@ export type SquareProps = {
     value:string;
     current:any;
 }
+
+export type TurnlistProps = {
+    move: number;
+    Jump: (val:any) => void;
+}
